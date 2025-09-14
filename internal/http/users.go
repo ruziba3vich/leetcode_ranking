@@ -20,6 +20,13 @@ type Handler struct {
 	logger *logger.Logger
 }
 
+func NewHandler(srv service.UserService, logger *logger.Logger) *Handler {
+	return &Handler{
+		srv:    srv,
+		logger: logger,
+	}
+}
+
 // CreateUser godoc
 // @Summary     Create a user by fetching data from LeetCode and persisting it
 // @Description Takes a username, scrapes public data from LeetCode, and stores it in Postgres.
