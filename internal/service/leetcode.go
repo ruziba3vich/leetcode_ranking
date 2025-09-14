@@ -119,7 +119,7 @@ type SyncOptions struct {
 
 // SyncLeaderboard pulls from LeetCode and upserts into DB.
 // This is your single entrypoint for the daily cron.
-func (s *UserService) SyncLeaderboard(ctx context.Context, opts SyncOptions) error {
+func (s *userService) SyncLeaderboard(ctx context.Context, opts SyncOptions) error {
 	// defaults
 	if opts.StartPage < 1 {
 		opts.StartPage = 1
@@ -359,7 +359,7 @@ type ACStat struct {
 	Submissions int    `json:"submissions"`
 }
 
-func (s *UserService) FetchUser(username string) (*ResponseUser, error) {
+func (s *userService) FetchUser(username string) (*ResponseUser, error) {
 	var out ResponseUser
 	if err := s.leetCodeClient.doGraphQL(queryMatchedUser, map[string]interface{}{"username": username}, &out); err != nil {
 		return nil, err
@@ -371,7 +371,7 @@ func (s *UserService) FetchUser(username string) (*ResponseUser, error) {
 }
 
 // Fetch usernames from ranking pages: start..end inclusive
-func (s *UserService) CollectUsernames(startPage, maxPages int) ([]string, int, error) {
+func (s *userService) CollectUsernames(startPage, maxPages int) ([]string, int, error) {
 	if startPage < 1 {
 		startPage = 1
 	}
@@ -430,7 +430,7 @@ func (s *UserService) CollectUsernames(startPage, maxPages int) ([]string, int, 
 	return users, endPage, nil
 }
 
-func (s *UserService) FetchRankingPage(page int) (*ResponseGlobal, error) {
+func (s *userService) FetchRankingPage(page int) (*ResponseGlobal, error) {
 	var out ResponseGlobal
 	if err := s.leetCodeClient.doGraphQL(queryGlobalRanking, map[string]interface{}{"page": page}, &out); err != nil {
 		return nil, err
@@ -479,7 +479,7 @@ func (c *LeetCodeClient) doGraphQL(query string, variables map[string]interface{
 	return nil
 }
 
-func (s *UserService) FetchLeetCodeUser(ctx context.Context, username string) (OutputUser, error) {
+func (s *userService) FetchLeetCodeUser(ctx context.Context, username string) (OutputUser, error) {
 	var out OutputUser
 
 	username = strings.TrimSpace(username)

@@ -11,14 +11,14 @@ import (
 )
 
 type Factory struct {
-	service *service.UserService
+	service service.UserService
 }
 
 var (
 	factory Factory
 )
 
-func GetUserService() *service.UserService {
+func GetUserService() service.UserService {
 	if factory.service == nil {
 		leetcodeClient := service.NewLeetCodeClient(true, 800*time.Millisecond)
 		lgg, err := logger.NewLogger("app.log")

@@ -9,21 +9,21 @@ import (
 	logger "github.com/ruziba3vich/prodonik_lgger"
 )
 
-type UserService struct {
+type userService struct {
 	leetCodeClient *LeetCodeClient
 	storage        users_storage.Querier
 	logger         logger.Logger
 }
 
-func NewUserService(storage users_storage.Querier, leetCodeClient *LeetCodeClient, log logger.Logger) *UserService {
-	return &UserService{
+func NewUserService(storage users_storage.Querier, leetCodeClient *LeetCodeClient, log logger.Logger) UserService {
+	return &userService{
 		storage:        storage,
 		leetCodeClient: leetCodeClient,
 		logger:         log,
 	}
 }
 
-func (s *UserService) CreateUser(ctx context.Context, arg *users_storage.CreateUserParams) (*users_storage.UserDatum, error) {
+func (s *userService) CreateUser(ctx context.Context, arg *users_storage.CreateUserParams) (*users_storage.UserDatum, error) {
 	if strings.TrimSpace(arg.Username) == "" {
 		return nil, fmt.Errorf("username is required")
 	}
@@ -37,7 +37,7 @@ func (s *UserService) CreateUser(ctx context.Context, arg *users_storage.CreateU
 	return &u, nil
 }
 
-func (s *UserService) DeleteUserByUsername(ctx context.Context, username string) error {
+func (s *userService) DeleteUserByUsername(ctx context.Context, username string) error {
 	username = strings.TrimSpace(username)
 	if username == "" {
 		return fmt.Errorf("username is required")
@@ -51,7 +51,7 @@ func (s *UserService) DeleteUserByUsername(ctx context.Context, username string)
 	return nil
 }
 
-func (s *UserService) GetUserByUsername(ctx context.Context, username string) (*users_storage.UserDatum, error) {
+func (s *userService) GetUserByUsername(ctx context.Context, username string) (*users_storage.UserDatum, error) {
 	username = strings.TrimSpace(username)
 	if username == "" {
 		return nil, fmt.Errorf("username is required")
@@ -66,7 +66,7 @@ func (s *UserService) GetUserByUsername(ctx context.Context, username string) (*
 	return &u, nil
 }
 
-func (s *UserService) GetUsersByCountry(ctx context.Context, arg *users_storage.GetUsersByCountryParams) ([]users_storage.UserDatum, error) {
+func (s *userService) GetUsersByCountry(ctx context.Context, arg *users_storage.GetUsersByCountryParams) ([]users_storage.UserDatum, error) {
 	users, err := s.storage.GetUsersByCountry(ctx, *arg)
 	if err != nil {
 		s.logger.Errorf("GetUsersByCountry: params=%+v err=%v", arg, err)
@@ -76,7 +76,7 @@ func (s *UserService) GetUsersByCountry(ctx context.Context, arg *users_storage.
 	return users, nil
 }
 
-func (s *UserService) UpdateUserByUsername(ctx context.Context, arg *users_storage.UpdateUserByUsernameParams) (*users_storage.UserDatum, error) {
+func (s *userService) UpdateUserByUsername(ctx context.Context, arg *users_storage.UpdateUserByUsernameParams) (*users_storage.UserDatum, error) {
 	if strings.TrimSpace(arg.Username) == "" {
 		return nil, fmt.Errorf("username is required")
 	}
