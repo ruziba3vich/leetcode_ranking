@@ -1,5 +1,7 @@
 package dto
 
+import "github.com/ruziba3vich/leetcode_ranking/db/users_storage"
+
 type (
 	CreateUserRequest struct {
 		Username string `json:"username"`
@@ -13,5 +15,11 @@ type (
 	PageLimit struct {
 		Page  int `form:"page"  binding:"required,min=1"`
 		Limit int `form:"limit" binding:"required,min=1,max=100"`
+	}
+
+	GetUsersByCountryResponse struct {
+		Users      []users_storage.UserDatum
+		TitalCount int64
+		PageLimit
 	}
 )
