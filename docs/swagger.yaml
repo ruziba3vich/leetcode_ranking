@@ -1,8 +1,62 @@
 definitions:
+  github_com_ruziba3vich_leetcode_ranking_db_users_storage.UserDatum:
+    properties:
+      country_code:
+        $ref: '#/definitions/sql.NullString'
+      country_name:
+        $ref: '#/definitions/sql.NullString'
+      created_at:
+        type: string
+      id:
+        type: integer
+      real_name:
+        $ref: '#/definitions/sql.NullString'
+      total_problems_solved:
+        type: integer
+      total_submissions:
+        type: integer
+      typename:
+        $ref: '#/definitions/sql.NullString'
+      updated_at:
+        type: string
+      user_avatar:
+        $ref: '#/definitions/sql.NullString'
+      user_slug:
+        type: string
+      username:
+        type: string
+    type: object
   github_com_ruziba3vich_leetcode_ranking_internal_dto.CreateUserRequest:
     properties:
       username:
         type: string
+    type: object
+  github_com_ruziba3vich_leetcode_ranking_internal_dto.GetUsersByCountryResponse:
+    properties:
+      limit:
+        maximum: 100
+        minimum: 1
+        type: integer
+      page:
+        minimum: 1
+        type: integer
+      titalCount:
+        type: integer
+      users:
+        items:
+          $ref: '#/definitions/github_com_ruziba3vich_leetcode_ranking_db_users_storage.UserDatum'
+        type: array
+    required:
+    - limit
+    - page
+    type: object
+  sql.NullString:
+    properties:
+      string:
+        type: string
+      valid:
+        description: Valid is true if String is not NULL
+        type: boolean
     type: object
 info:
   contact:
@@ -17,7 +71,48 @@ info:
   title: Leetcoders API
   version: "1.0"
 paths:
-  /users:
+  /api/v1/add-user:
+    post:
+      consumes:
+      - application/json
+      description: Takes a username, scrapes public data from LeetCode, and stores
+        it in Postgres.
+      parameters:
+      - description: Create user payload
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_ruziba3vich_leetcode_ranking_internal_dto.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created user object
+          schema:
+            $ref: '#/definitions/github_com_ruziba3vich_leetcode_ranking_db_users_storage.UserDatum'
+        "400":
+          description: Bad request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: User not available
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a user by fetching data from LeetCode and persisting it
+      tags:
+      - users
+  /api/v1/get-users:
     get:
       consumes:
       - application/json
@@ -43,64 +138,22 @@ paths:
       - application/json
       responses:
         "200":
-          description: 'data: array of users'
+          description: List of users by country
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/github_com_ruziba3vich_leetcode_ranking_internal_dto.GetUsersByCountryResponse'
         "400":
-          description: 'error: validation message'
+          description: Validation message
           schema:
             additionalProperties:
               type: string
             type: object
         "500":
-          description: 'error: internal server error'
+          description: Internal server error
           schema:
             additionalProperties:
               type: string
             type: object
       summary: List users by country (paginated, ranked)
-      tags:
-      - users
-    post:
-      consumes:
-      - application/json
-      description: Takes a username, scrapes public data from LeetCode, and stores
-        it in Postgres.
-      parameters:
-      - description: Create user payload
-        in: body
-        name: body
-        required: true
-        schema:
-          $ref: '#/definitions/github_com_ruziba3vich_leetcode_ranking_internal_dto.CreateUserRequest'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: 'data: created user object'
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: 'error: bad request'
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-        "404":
-          description: 'error: user not available'
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-        "500":
-          description: 'error: internal server error'
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-      summary: Create a user by fetching data from LeetCode and persisting it
       tags:
       - users
 swagger: "2.0"

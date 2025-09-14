@@ -24,7 +24,68 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/users": {
+        "/api/v1/add-user": {
+            "post": {
+                "description": "Takes a username, scrapes public data from LeetCode, and stores it in Postgres.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Create a user by fetching data from LeetCode and persisting it",
+                "parameters": [
+                    {
+                        "description": "Create user payload",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_ruziba3vich_leetcode_ranking_internal_dto.CreateUserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created user object",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_ruziba3vich_leetcode_ranking_db_users_storage.UserDatum"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not available",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/get-users": {
             "get": {
                 "description": "Returns users filtered by 2-letter country code, ordered by total_problems_solved DESC, then total_submissions ASC, then username ASC.",
                 "consumes": [
@@ -62,14 +123,13 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "data: array of users",
+                        "description": "List of users by country",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/github_com_ruziba3vich_leetcode_ranking_internal_dto.GetUsersByCountryResponse"
                         }
                     },
                     "400": {
-                        "description": "error: validation message",
+                        "description": "Validation message",
                         "schema": {
                             "type": "object",
                             "additionalProperties": {
@@ -78,67 +138,7 @@ const docTemplate = `{
                         }
                     },
                     "500": {
-                        "description": "error: internal server error",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "Takes a username, scrapes public data from LeetCode, and stores it in Postgres.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "users"
-                ],
-                "summary": "Create a user by fetching data from LeetCode and persisting it",
-                "parameters": [
-                    {
-                        "description": "Create user payload",
-                        "name": "body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/github_com_ruziba3vich_leetcode_ranking_internal_dto.CreateUserRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "data: created user object",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "400": {
-                        "description": "error: bad request",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "error: user not available",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "error: internal server error",
+                        "description": "Internal server error",
                         "schema": {
                             "type": "object",
                             "additionalProperties": {
@@ -151,11 +151,91 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "github_com_ruziba3vich_leetcode_ranking_db_users_storage.UserDatum": {
+            "type": "object",
+            "properties": {
+                "country_code": {
+                    "$ref": "#/definitions/sql.NullString"
+                },
+                "country_name": {
+                    "$ref": "#/definitions/sql.NullString"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "real_name": {
+                    "$ref": "#/definitions/sql.NullString"
+                },
+                "total_problems_solved": {
+                    "type": "integer"
+                },
+                "total_submissions": {
+                    "type": "integer"
+                },
+                "typename": {
+                    "$ref": "#/definitions/sql.NullString"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "user_avatar": {
+                    "$ref": "#/definitions/sql.NullString"
+                },
+                "user_slug": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
         "github_com_ruziba3vich_leetcode_ranking_internal_dto.CreateUserRequest": {
             "type": "object",
             "properties": {
                 "username": {
                     "type": "string"
+                }
+            }
+        },
+        "github_com_ruziba3vich_leetcode_ranking_internal_dto.GetUsersByCountryResponse": {
+            "type": "object",
+            "required": [
+                "limit",
+                "page"
+            ],
+            "properties": {
+                "limit": {
+                    "type": "integer",
+                    "maximum": 100,
+                    "minimum": 1
+                },
+                "page": {
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "titalCount": {
+                    "type": "integer"
+                },
+                "users": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_ruziba3vich_leetcode_ranking_db_users_storage.UserDatum"
+                    }
+                }
+            }
+        },
+        "sql.NullString": {
+            "type": "object",
+            "properties": {
+                "string": {
+                    "type": "string"
+                },
+                "valid": {
+                    "description": "Valid is true if String is not NULL",
+                    "type": "boolean"
                 }
             }
         }
