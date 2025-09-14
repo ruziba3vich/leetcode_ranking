@@ -16,11 +16,17 @@ type PostgresConfig struct {
 	SSLMode  string
 }
 
+type LeetcodeClientConfig struct {
+	Delay time.Duration
+	Debug bool
+}
+
 type Config struct {
 	Postgres    *PostgresConfig
 	LogFilePath string
 	TgBotToken  string
 	AppPort     string
+	LeetcodeClientConfig
 }
 
 // Load reads configuration from environment variables
@@ -43,6 +49,10 @@ func Load() *Config {
 		LogFilePath: getEnv("LOG_FILE_PATH", "app.log"),
 		TgBotToken:  getEnv("TG_BOT_TOKEN", "8256069245:AAG9R6mTbOd3K_IGCaGeCSEBB-FZSE4cWVA"),
 		AppPort:     getEnv("APP_PORT", "8888"),
+		LeetcodeClientConfig: LeetcodeClientConfig{
+			Delay: getTimeEnv("LEETCODE_CLIENT_DELAY", 800, time.Millisecond),
+			Debug: true,
+		},
 	}
 }
 
