@@ -1,0 +1,106 @@
+definitions:
+  github_com_ruziba3vich_leetcode_ranking_internal_dto.CreateUserRequest:
+    properties:
+      username:
+        type: string
+    type: object
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: Leetcoders API Documentation
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Leetcoders API
+  version: "1.0"
+paths:
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: Returns users filtered by 2-letter country code, ordered by total_problems_solved
+        DESC, then total_submissions ASC, then username ASC.
+      parameters:
+      - description: ISO-3166-1 alpha-2 country code (e.g., US, CN, SG)
+        in: query
+        name: country
+        required: true
+        type: string
+      - description: Page number (1-based)
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: Page size (1–100)
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'data: array of users'
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: 'error: validation message'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: 'error: internal server error'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: List users by country (paginated, ranked)
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: Takes a username, scrapes public data from LeetCode, and stores
+        it in Postgres.
+      parameters:
+      - description: Create user payload
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_ruziba3vich_leetcode_ranking_internal_dto.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: 'data: created user object'
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: 'error: bad request'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: 'error: user not available'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: 'error: internal server error'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a user by fetching data from LeetCode and persisting it
+      tags:
+      - users
+swagger: "2.0"
