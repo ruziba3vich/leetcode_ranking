@@ -1,0 +1,1502 @@
+[
+  {
+    "user": {
+      "username": "Allink",
+      "profile": {
+        "userSlug": "Allink",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "Allink",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 0,
+        "totalSubmissions": 0
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "369488685",
+      "profile": {
+        "userSlug": "369488685",
+        "userAvatar": "https://assets.leetcode.com/users/369488685/avatar_1536663646.png",
+        "countryCode": "CN",
+        "countryName": "China",
+        "realName": "LLL",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 3,
+        "totalSubmissions": 6
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "Aging",
+      "profile": {
+        "userSlug": "Aging",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "CN",
+        "countryName": "China",
+        "realName": "Aging",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 854,
+        "totalSubmissions": 960
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "Carefreejs",
+      "profile": {
+        "userSlug": "Carefreejs",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "US",
+        "countryName": "United States",
+        "realName": "Carefreejs",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 59,
+        "totalSubmissions": 87
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "0suoicsnocbus",
+      "profile": {
+        "userSlug": "0suoicsnocbus",
+        "userAvatar": "https://assets.leetcode.com/users/avatars/avatar_1673751905.png",
+        "countryCode": "US",
+        "countryName": "United States",
+        "realName": "0suoicsnocbus",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 608,
+        "totalSubmissions": 704
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "HazemAllaham",
+      "profile": {
+        "userSlug": "HazemAllaham",
+        "userAvatar": "https://assets.leetcode.com/users/avatars/avatar_1681503773.png",
+        "countryCode": "PS",
+        "countryName": "Palestinian Territory",
+        "realName": "Hazem Allaham",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 5,
+        "totalSubmissions": 10
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "Kude",
+      "profile": {
+        "userSlug": "Kude",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "JP",
+        "countryName": "Japan",
+        "realName": "Kude",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 787,
+        "totalSubmissions": 878
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "AntonRaichuk",
+      "profile": {
+        "userSlug": "AntonRaichuk",
+        "userAvatar": "https://assets.leetcode.com/users/avatars/avatar_1652129885.png",
+        "countryCode": "UA",
+        "countryName": "Ukraine",
+        "realName": "AntonRaichuk",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 868,
+        "totalSubmissions": 906
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "LayCurse",
+      "profile": {
+        "userSlug": "LayCurse",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "JP",
+        "countryName": "Japan",
+        "realName": "LayCurse",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 1242,
+        "totalSubmissions": 1755
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "Nahin_Imtiaz",
+      "profile": {
+        "userSlug": "Nahin_Imtiaz",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "Nahin_Imtiaz",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 16,
+        "totalSubmissions": 25
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "MisterSoandSo",
+      "profile": {
+        "userSlug": "MisterSoandSo",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "MisterSoandSo",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 33,
+        "totalSubmissions": 42
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "Naruto_x",
+      "profile": {
+        "userSlug": "Naruto_x",
+        "userAvatar": "https://assets.leetcode.com/users/Naruto_x/avatar_1730882090.png",
+        "countryCode": "IN",
+        "countryName": "India",
+        "realName": "Naruto",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 3672,
+        "totalSubmissions": 5434
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "MichaelPengDeveloper",
+      "profile": {
+        "userSlug": "MichaelPengDeveloper",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "MichaelPengDeveloper",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 0,
+        "totalSubmissions": 0
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "Nirav5502",
+      "profile": {
+        "userSlug": "Nirav5502",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "Nirav5502",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 0,
+        "totalSubmissions": 0
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "Dear_starboy",
+      "profile": {
+        "userSlug": "Dear_starboy",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "Dear_starboy",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 0,
+        "totalSubmissions": 0
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "Poojash18",
+      "profile": {
+        "userSlug": "Poojash18",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "Poojash18",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 1,
+        "totalSubmissions": 1
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "PurpleCrayon",
+      "profile": {
+        "userSlug": "PurpleCrayon",
+        "userAvatar": "https://assets.leetcode.com/users/rohingarg123/avatar_1584377597.png",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "Rohin Garg",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 785,
+        "totalSubmissions": 881
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "TheWander",
+      "profile": {
+        "userSlug": "TheWander",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "TW",
+        "countryName": "Taiwan",
+        "realName": "MIAW TORNG　ＲＥＮ",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 3,
+        "totalSubmissions": 3
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "R3mix",
+      "profile": {
+        "userSlug": "R3mix",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "US",
+        "countryName": "United States",
+        "realName": "R3mix",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 1813,
+        "totalSubmissions": 4129
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "Shandse40",
+      "profile": {
+        "userSlug": "Shandse40",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "Shandse40",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 0,
+        "totalSubmissions": 0
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "Sd-Invol",
+      "profile": {
+        "userSlug": "Sd-Invol",
+        "userAvatar": "https://assets.leetcode.com/users/sd-invol/avatar_1543728365.png",
+        "countryCode": "CN",
+        "countryName": "China",
+        "realName": "Xuanang Zhao",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 415,
+        "totalSubmissions": 485
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "_kevinyang",
+      "profile": {
+        "userSlug": "_kevinyang",
+        "userAvatar": "https://assets.leetcode.com/users/_kevinyang/avatar_1721046496.png",
+        "countryCode": "CA",
+        "countryName": "Canada",
+        "realName": "Kai Wen Yang",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 731,
+        "totalSubmissions": 879
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "ahmed007boss",
+      "profile": {
+        "userSlug": "ahmed007boss",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "ahmed007boss",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 0,
+        "totalSubmissions": 0
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "arignote",
+      "profile": {
+        "userSlug": "arignote",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "arignote",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 406,
+        "totalSubmissions": 440
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "Yawn_Sean",
+      "profile": {
+        "userSlug": "Yawn_Sean",
+        "userAvatar": "https://assets.leetcode.com/users/1900015431/avatar_1633874346.png",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "Yawn_Sean",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 1082,
+        "totalSubmissions": 1615
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "awice",
+      "profile": {
+        "userSlug": "awice",
+        "userAvatar": "https://assets.leetcode.com/users/awice/avatar_1576905115.png",
+        "countryCode": "TH",
+        "countryName": "Thailand",
+        "realName": "Alex Wice",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 3094,
+        "totalSubmissions": 6051
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "beet",
+      "profile": {
+        "userSlug": "beet",
+        "userAvatar": "https://assets.leetcode.com/users/beet/avatar_1554096381.png",
+        "countryCode": "JP",
+        "countryName": "Japan",
+        "realName": "beet",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 356,
+        "totalSubmissions": 370
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "bilyhurington",
+      "profile": {
+        "userSlug": "bilyhurington",
+        "userAvatar": "https://assets.leetcode.com/users/avatars/avatar_1692103580.png",
+        "countryCode": "US",
+        "countryName": "United States",
+        "realName": "bilyhurington",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 194,
+        "totalSubmissions": 225
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "bucketpotato",
+      "profile": {
+        "userSlug": "bucketpotato",
+        "userAvatar": "https://assets.leetcode.com/users/avatars/avatar_1668381644.png",
+        "countryCode": "US",
+        "countryName": "United States",
+        "realName": "William Tsin",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 115,
+        "totalSubmissions": 122
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "bucker",
+      "profile": {
+        "userSlug": "bucker",
+        "userAvatar": "https://assets.leetcode.com/users/bucker/avatar_1569226969.png",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "Bucker Chin",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 13,
+        "totalSubmissions": 25
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "dnialh",
+      "profile": {
+        "userSlug": "dnialh",
+        "userAvatar": "https://assets.leetcode.com/users/avatars/avatar_1655848184.png",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "dnialh",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 235,
+        "totalSubmissions": 237
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "dong_liu",
+      "profile": {
+        "userSlug": "dong_liu",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "Bing-Dong Liu",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 185,
+        "totalSubmissions": 192
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "chalowis",
+      "profile": {
+        "userSlug": "chalowis",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "chalowis",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 0,
+        "totalSubmissions": 0
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "cai_lw",
+      "profile": {
+        "userSlug": "cai_lw",
+        "userAvatar": "https://assets.leetcode.com/users/cai_lw/avatar_1537079852.png",
+        "countryCode": "US",
+        "countryName": "United States",
+        "realName": "Liwei Cai",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 1756,
+        "totalSubmissions": 2034
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "flashmt",
+      "profile": {
+        "userSlug": "flashmt",
+        "userAvatar": "https://assets.leetcode.com/users/avatars/avatar_1647861014.png",
+        "countryCode": "VN",
+        "countryName": "Vietnam",
+        "realName": "Nguyen Nguyen",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 345,
+        "totalSubmissions": 354
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "fmota",
+      "profile": {
+        "userSlug": "fmota",
+        "userAvatar": "https://assets.leetcode.com/users/fmota973/avatar_1586010134.png",
+        "countryCode": "BR",
+        "countryName": "Brazil",
+        "realName": "fmota",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 275,
+        "totalSubmissions": 288
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "emthrm",
+      "profile": {
+        "userSlug": "emthrm",
+        "userAvatar": "https://assets.leetcode.com/users/user4169qw/avatar_1586634158.png",
+        "countryCode": "JP",
+        "countryName": "Japan",
+        "realName": "emthrm",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 771,
+        "totalSubmissions": 775
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "friedall",
+      "profile": {
+        "userSlug": "friedall",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "HK",
+        "countryName": "Hong Kong",
+        "realName": "bedrockfake",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 270,
+        "totalSubmissions": 273
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "dreamoon",
+      "profile": {
+        "userSlug": "dreamoon",
+        "userAvatar": "https://assets.leetcode.com/users/dreamoon/avatar_1523092546.png",
+        "countryCode": "TW",
+        "countryName": "Taiwan",
+        "realName": "I-Wen Huang",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 389,
+        "totalSubmissions": 402
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "fjzzq2002",
+      "profile": {
+        "userSlug": "fjzzq2002",
+        "userAvatar": "https://assets.leetcode.com/users/fjzzq2002/avatar_1735951462.png",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "Miruu",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 227,
+        "totalSubmissions": 314
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "gdkat",
+      "profile": {
+        "userSlug": "gdkat",
+        "userAvatar": "https://assets.leetcode.com/users/gdkat/avatar_1597634411.png",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "gdkat",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 117,
+        "totalSubmissions": 283
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "green_pig",
+      "profile": {
+        "userSlug": "green_pig",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "green_pig",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 324,
+        "totalSubmissions": 333
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "hitonanode",
+      "profile": {
+        "userSlug": "hitonanode",
+        "userAvatar": "https://assets.leetcode.com/users/hitonanode/avatar_1594984583.png",
+        "countryCode": "JP",
+        "countryName": "Japan",
+        "realName": "hitonanode",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 471,
+        "totalSubmissions": 529
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "getnaukri",
+      "profile": {
+        "userSlug": "getnaukri",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "getnaukri",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 0,
+        "totalSubmissions": 0
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "hankray",
+      "profile": {
+        "userSlug": "hankray",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "hankray",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 0,
+        "totalSubmissions": 0
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "ios_zhangchao",
+      "profile": {
+        "userSlug": "ios_zhangchao",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "ios_zhangchao",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 241,
+        "totalSubmissions": 950
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "hank55663",
+      "profile": {
+        "userSlug": "hank55663",
+        "userAvatar": "https://assets.leetcode.com/users/hank55663/avatar_1586006495.png",
+        "countryCode": "TW",
+        "countryName": "Taiwan",
+        "realName": "hank55663",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 1358,
+        "totalSubmissions": 1517
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "istiak227",
+      "profile": {
+        "userSlug": "istiak227",
+        "userAvatar": "https://assets.leetcode.com/users/avatars/avatar_1652971548.png",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "istiak227",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 0,
+        "totalSubmissions": 0
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "jonathanirvings",
+      "profile": {
+        "userSlug": "jonathanirvings",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "SG",
+        "countryName": "Singapore",
+        "realName": "jonathanirvings",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 547,
+        "totalSubmissions": 582
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "kaikaikaikaikai",
+      "profile": {
+        "userSlug": "kaikaikaikaikai",
+        "userAvatar": "https://assets.leetcode.com/users/avatars/avatar_1662448415.png",
+        "countryCode": "KZ",
+        "countryName": "Kazakhstan",
+        "realName": "Aibar Kuanyshbay",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 521,
+        "totalSubmissions": 882
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "kirika-comp",
+      "profile": {
+        "userSlug": "kirika-comp",
+        "userAvatar": "https://assets.leetcode.com/users/kirika-comp/avatar_1619320383.png",
+        "countryCode": "JP",
+        "countryName": "Japan",
+        "realName": "Kirika Yuumura",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 195,
+        "totalSubmissions": 196
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "karate",
+      "profile": {
+        "userSlug": "karate",
+        "userAvatar": "https://assets.leetcode.com/users/karate/avatar_1709585366.png",
+        "countryCode": "US",
+        "countryName": "United States",
+        "realName": "Karsten",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 77,
+        "totalSubmissions": 125
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "klion26",
+      "profile": {
+        "userSlug": "klion26",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "klion26",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 172,
+        "totalSubmissions": 314
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "lachy_136",
+      "profile": {
+        "userSlug": "lachy_136",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "lachy_136",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 4,
+        "totalSubmissions": 4
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "liming-v",
+      "profile": {
+        "userSlug": "liming-v",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "liming-v",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 17,
+        "totalSubmissions": 19
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "kmjp",
+      "profile": {
+        "userSlug": "kmjp",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "kmjp",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 2094,
+        "totalSubmissions": 2131
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "manohar.morthala",
+      "profile": {
+        "userSlug": "manohar.morthala",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "manohar.morthala",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 0,
+        "totalSubmissions": 0
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "lympanda",
+      "profile": {
+        "userSlug": "lympanda",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "Yiming Li",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 767,
+        "totalSubmissions": 794
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "neal_wu",
+      "profile": {
+        "userSlug": "neal_wu",
+        "userAvatar": "https://assets.leetcode.com/users/neal_wu/avatar_1737814509.png",
+        "countryCode": "US",
+        "countryName": "United States",
+        "realName": "Neal Wu",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 253,
+        "totalSubmissions": 440
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "mayur0055",
+      "profile": {
+        "userSlug": "mayur0055",
+        "userAvatar": "https://assets.leetcode.com/users/mayur0055/avatar_1727100134.png",
+        "countryCode": "IN",
+        "countryName": "India",
+        "realName": "Mayur Verma",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 397,
+        "totalSubmissions": 666
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "mohfadhil",
+      "profile": {
+        "userSlug": "mohfadhil",
+        "userAvatar": "https://assets.leetcode.com/users/mohfadhil/avatar_1534095486.png",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "Mohammed Fadhil",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 1,
+        "totalSubmissions": 1
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "parallel_stream",
+      "profile": {
+        "userSlug": "parallel_stream",
+        "userAvatar": "https://assets.leetcode.com/users/parallel_stream/avatar_1731317130.png",
+        "countryCode": "GL",
+        "countryName": "Greenland",
+        "realName": "parallel_stream",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 828,
+        "totalSubmissions": 1704
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "natsugiri",
+      "profile": {
+        "userSlug": "natsugiri",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "JP",
+        "countryName": "Japan",
+        "realName": "natsugiri",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 1031,
+        "totalSubmissions": 1033
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "numb3r5",
+      "profile": {
+        "userSlug": "numb3r5",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "AU",
+        "countryName": "Australia",
+        "realName": "Joshua Chen",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 2036,
+        "totalSubmissions": 4229
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "pathetic-dog",
+      "profile": {
+        "userSlug": "pathetic-dog",
+        "userAvatar": "https://assets.leetcode.com/users/avatars/avatar_1659190654.png",
+        "countryCode": "IN",
+        "countryName": "India",
+        "realName": "Pathetic Dog",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 36,
+        "totalSubmissions": 36
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "python_champ123",
+      "profile": {
+        "userSlug": "python_champ123",
+        "userAvatar": "https://assets.leetcode.com/users/T273xCaaX9/avatar_1740528726.png",
+        "countryCode": "US",
+        "countryName": "United States",
+        "realName": "Python All Day",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 2020,
+        "totalSubmissions": 7218
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "qeetcode",
+      "profile": {
+        "userSlug": "qeetcode",
+        "userAvatar": "https://assets.leetcode.com/users/rainingpeace/avatar_1617292193.png",
+        "countryCode": "US",
+        "countryName": "United States",
+        "realName": "Sam Lee",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 1335,
+        "totalSubmissions": 3299
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "penguinhacker",
+      "profile": {
+        "userSlug": "penguinhacker",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "penguinhacker",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 680,
+        "totalSubmissions": 703
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "physics0523",
+      "profile": {
+        "userSlug": "physics0523",
+        "userAvatar": "https://assets.leetcode.com/users/physics0523/avatar_1567908855.png",
+        "countryCode": "JP",
+        "countryName": "Japan",
+        "realName": "physics0523",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 283,
+        "totalSubmissions": 285
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "queerAsfolk",
+      "profile": {
+        "userSlug": "queerAsfolk",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "queerAsfolk",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 0,
+        "totalSubmissions": 0
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "pandaforever",
+      "profile": {
+        "userSlug": "pandaforever",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "pandaforever",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 174,
+        "totalSubmissions": 185
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "sisyphus3",
+      "profile": {
+        "userSlug": "sisyphus3",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "TW",
+        "countryName": "Taiwan",
+        "realName": "Zachary Chao",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 115,
+        "totalSubmissions": 127
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "rfpermen",
+      "profile": {
+        "userSlug": "rfpermen",
+        "userAvatar": "https://assets.leetcode.com/users/rfpermen/avatar_1617464437.png",
+        "countryCode": "ID",
+        "countryName": "Indonesia",
+        "realName": "Rico Filberto",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 1486,
+        "totalSubmissions": 2316
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "satyajeetramnit2708",
+      "profile": {
+        "userSlug": "satyajeetramnit2708",
+        "userAvatar": "https://assets.leetcode.com/users/satyajeetramnit2708/avatar_1628092124.png",
+        "countryCode": "IN",
+        "countryName": "India",
+        "realName": "Satyajeet Ramnit",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 221,
+        "totalSubmissions": 311
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "scanhex",
+      "profile": {
+        "userSlug": "scanhex",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "US",
+        "countryName": "United States",
+        "realName": "scanhex",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 312,
+        "totalSubmissions": 326
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "skpeng",
+      "profile": {
+        "userSlug": "skpeng",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "skpeng",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 11,
+        "totalSubmissions": 20
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "shyamjha12",
+      "profile": {
+        "userSlug": "shyamjha12",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "shyamjha12",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 1,
+        "totalSubmissions": 1
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "skywalkert",
+      "profile": {
+        "userSlug": "skywalkert",
+        "userAvatar": "https://assets.leetcode.com/users/t251346744/avatar_1587471563.png",
+        "countryCode": "CN",
+        "countryName": "China",
+        "realName": "Jingzhe Tang",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 3495,
+        "totalSubmissions": 7992
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "stany",
+      "profile": {
+        "userSlug": "stany",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "stany",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 162,
+        "totalSubmissions": 213
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "superluminal",
+      "profile": {
+        "userSlug": "superluminal",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "US",
+        "countryName": "United States",
+        "realName": "Superluminal",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 2012,
+        "totalSubmissions": 2683
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "sqqqqqq",
+      "profile": {
+        "userSlug": "sqqqqqq",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "sqqqqqq",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 9,
+        "totalSubmissions": 11
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "smax",
+      "profile": {
+        "userSlug": "smax",
+        "userAvatar": "https://assets.leetcode.com/users/mzhangschool2/avatar_1577901199.png",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "smax",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 550,
+        "totalSubmissions": 706
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "tarek",
+      "profile": {
+        "userSlug": "tarek",
+        "userAvatar": "https://assets.leetcode.com/users/tarek/avatar_1524675661.png",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "Tarek Ashraf",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 40,
+        "totalSubmissions": 47
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "thenymphsofdelphi",
+      "profile": {
+        "userSlug": "thenymphsofdelphi",
+        "userAvatar": "https://assets.leetcode.com/users/thenymphsofdelphi/avatar_1756195878.png",
+        "countryCode": "VN",
+        "countryName": "Vietnam",
+        "realName": "Bach Tran",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 179,
+        "totalSubmissions": 184
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "tabr",
+      "profile": {
+        "userSlug": "tabr",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "JP",
+        "countryName": "Japan",
+        "realName": "Takuki Kurokawa",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 400,
+        "totalSubmissions": 438
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "tmwilliamlin168",
+      "profile": {
+        "userSlug": "tmwilliamlin168",
+        "userAvatar": "https://assets.leetcode.com/users/tmwilliamlin168/avatar_1581176013.png",
+        "countryCode": "TW",
+        "countryName": "Taiwan",
+        "realName": "William Lin",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 204,
+        "totalSubmissions": 220
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "theone7",
+      "profile": {
+        "userSlug": "theone7",
+        "userAvatar": "https://assets.leetcode.com/users/martinobrcian01/avatar_1627226722.png",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "theone7",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 0,
+        "totalSubmissions": 0
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "usephysics",
+      "profile": {
+        "userSlug": "usephysics",
+        "userAvatar": "https://assets.leetcode.com/users/avatars/avatar_1697180112.png",
+        "countryCode": "CA",
+        "countryName": "Canada",
+        "realName": "Ryan Tan",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 1748,
+        "totalSubmissions": 6464
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "uwi",
+      "profile": {
+        "userSlug": "uwi",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "JP",
+        "countryName": "Japan",
+        "realName": "uwi",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 2049,
+        "totalSubmissions": 2319
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "user8991p",
+      "profile": {
+        "userSlug": "user8991p",
+        "userAvatar": "https://assets.leetcode.com/users/user8991p/avatar_1619623608.png",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "Siddharthan S S",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 38,
+        "totalSubmissions": 44
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "vince1114",
+      "profile": {
+        "userSlug": "vince1114",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "vince1114",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 20,
+        "totalSubmissions": 29
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "viraaj",
+      "profile": {
+        "userSlug": "viraaj",
+        "userAvatar": "https://assets.leetcode.com/users/viraaj/avatar_1558597726.png",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "Viraaj Marathe",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 61,
+        "totalSubmissions": 92
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "waakaaka",
+      "profile": {
+        "userSlug": "waakaaka",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "US",
+        "countryName": "United States",
+        "realName": "waakaaka",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 188,
+        "totalSubmissions": 201
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "wery0",
+      "profile": {
+        "userSlug": "wery0",
+        "userAvatar": "https://assets.leetcode.com/users/avatars/avatar_1666558782.png",
+        "countryCode": "RU",
+        "countryName": "Russia",
+        "realName": "Bogdan",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 896,
+        "totalSubmissions": 1191
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "xiaowuc1",
+      "profile": {
+        "userSlug": "xiaowuc1",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "US",
+        "countryName": "United States",
+        "realName": "xiaowuc1",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 403,
+        "totalSubmissions": 489
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "xy12138",
+      "profile": {
+        "userSlug": "xy12138",
+        "userAvatar": "https://assets.leetcode.com/users/xy12138/avatar_1539779507.png",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "笑 章",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 64,
+        "totalSubmissions": 112
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "zeusmx",
+      "profile": {
+        "userSlug": "zeusmx",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "zeusmx",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 67,
+        "totalSubmissions": 74
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "youtube_aryanc403",
+      "profile": {
+        "userSlug": "youtube_aryanc403",
+        "userAvatar": "https://assets.leetcode.com/users/avatars/avatar_1706062400.png",
+        "countryCode": "IN",
+        "countryName": "India",
+        "realName": "YouTube Aryan",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 193,
+        "totalSubmissions": 300
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "wwwwodddd",
+      "profile": {
+        "userSlug": "wwwwodddd",
+        "userAvatar": "https://assets.leetcode.com/users/avatars/avatar_1655637961.png",
+        "countryCode": "HK",
+        "countryName": "Hong Kong",
+        "realName": "wwwwodddd",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 2109,
+        "totalSubmissions": 2136
+      }
+    }
+  },
+  {
+    "user": {
+      "username": "zhoupeiyun",
+      "profile": {
+        "userSlug": "zhoupeiyun",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "countryCode": "",
+        "countryName": "",
+        "realName": "zhoupeiyun",
+        "__typename": "UserProfileNode",
+        "totalProblemsSolved": 29,
+        "totalSubmissions": 35
+      }
+    }
+  }
+]

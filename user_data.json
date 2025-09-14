@@ -1,0 +1,15 @@
+{
+    "user": {
+            "username": "neal_wu",
+            "profile": {
+              "userSlug": "neal_wu",
+              "userAvatar": "https://assets.leetcode.com/users/neal_wu/avatar_1737814509.png",
+              "countryCode": "US",
+              "countryName": "United States",
+              "realName": "Neal Wu",
+              "__typename": "UserProfileNode",
+              "totalProblemsSolved": 536,
+              "totalSubmissions": 1028
+            }
+        }
+}
