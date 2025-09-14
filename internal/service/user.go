@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -99,14 +100,22 @@ func (s *userService) GetUserByUsername(ctx context.Context, username string) (*
 	return &u, nil
 }
 
-func (s *userService) GetUsersByCountry(ctx context.Context, arg *users_storage.GetUsersByCountryParams) ([]users_storage.UserDatum, error) {
+func (s *userService) GetUsersByCountry(ctx context.Context, arg *users_storage.GetUsersByCountryParams) (*dto.GetUsersByCountryResponse, error) {
 	users, err := s.storage.GetUsersByCountry(ctx, *arg)
 	if err != nil {
 		s.logger.Errorf("GetUsersByCountry: params=%+v err=%v", arg, err)
 		return nil, err
 	}
+
+	totalCount, err := s.storage.GetAllUsersCountByCountry(ctx, arg.CountryCode)
+	if err != nil {
+		return nil, errors.New("failed to fetch users count")
+	}
 	s.logger.Infof("GetUsersByCountry: params=%+v count=%d", arg, len(users))
-	return users, nil
+	return &dto.GetUsersByCountryResponse{
+		Users:      users,
+		TitalCount: totalCount,
+	}, nil
 }
 
 func (s *userService) UpdateUserByUsername(ctx context.Context, arg *users_storage.UpdateUserByUsernameParams) (*users_storage.UserDatum, error) {
