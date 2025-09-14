@@ -26,7 +26,7 @@ func GetUserService() service.UserService {
 		if err != nil {
 			log.Fatal(err)
 		}
-		factory.service = service.NewUserService(nil, leetcodeClient, *lgg)
+		factory.service = service.NewUserService(nil, leetcodeClient, lgg)
 	}
 
 	return factory.service

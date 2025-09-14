@@ -34,11 +34,11 @@ func NewHandler(srv service.UserService, logger *logger.Logger) *Handler {
 // @Accept      json
 // @Produce     json
 // @Param       body  body     dto.CreateUserRequest  true  "Create user payload"
-// @Success     201   {object} map[string]interface{} "data: created user object"
-// @Failure     400   {object} map[string]string      "error: bad request"
-// @Failure     404   {object} map[string]string      "error: user not available"
-// @Failure     500   {object} map[string]string      "error: internal server error"
-// @Router      /users [post]
+// @Success     201   {object} users_storage.UserDatum       "Created user object"
+// @Failure     400   {object} map[string]string      "Bad request"
+// @Failure     404   {object} map[string]string      "User not available"
+// @Failure     500   {object} map[string]string      "Internal server error"
+// @Router      /api/v1/add-user [post]
 func (h *Handler) CreateUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c.Request.Context(), 10*time.Second)
 	defer cancel()
@@ -58,7 +58,7 @@ func (h *Handler) CreateUser(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusCreated, gin.H{"data": response})
+	c.JSON(http.StatusCreated, response)
 }
 
 // GetUsersByCountry godoc
@@ -70,10 +70,10 @@ func (h *Handler) CreateUser(c *gin.Context) {
 // @Param       country  query    string true  "ISO-3166-1 alpha-2 country code (e.g., US, CN, SG)"
 // @Param       page     query    int    true  "Page number (1-based)"
 // @Param       limit    query    int    true  "Page size (1–100)"
-// @Success     200      {object} map[string]interface{} "data: array of users"
-// @Failure     400      {object} map[string]string      "error: validation message"
-// @Failure     500      {object} map[string]string      "error: internal server error"
-// @Router      /users [get]
+// @Success     200      {object} dto.GetUsersByCountryResponse "List of users by country"
+// @Failure     400      {object} map[string]string     "Validation message"
+// @Failure     500      {object} map[string]string     "Internal server error"
+// @Router      /api/v1/get-users [get]
 func (h *Handler) GetUsersByCountry(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c.Request.Context(), 10*time.Second)
 	defer cancel()
@@ -101,5 +101,5 @@ func (h *Handler) GetUsersByCountry(c *gin.Context) {
 	}
 
 	response.PageLimit = req.PageLimit
-	c.JSON(http.StatusOK, gin.H{"data": response})
+	c.JSON(http.StatusOK, response)
 }

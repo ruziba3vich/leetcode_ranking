@@ -20,7 +20,10 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
+	_ "github.com/lib/pq"
 	"github.com/ruziba3vich/leetcode_ranking/db/users_storage"
+	_ "github.com/ruziba3vich/leetcode_ranking/docs"
 	custom_http "github.com/ruziba3vich/leetcode_ranking/internal/http"
 	"github.com/ruziba3vich/leetcode_ranking/internal/pkg/config"
 	"github.com/ruziba3vich/leetcode_ranking/internal/pkg/helper"

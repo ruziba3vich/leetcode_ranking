@@ -15,10 +15,10 @@ import (
 type userService struct {
 	leetCodeClient *LeetCodeClient
 	storage        users_storage.Querier
-	logger         logger.Logger
+	logger         *logger.Logger
 }
 
-func NewUserService(storage users_storage.Querier, leetCodeClient *LeetCodeClient, log logger.Logger) UserService {
+func NewUserService(storage users_storage.Querier, leetCodeClient *LeetCodeClient, log *logger.Logger) UserService {
 	return &userService{
 		storage:        storage,
 		leetCodeClient: leetCodeClient,
