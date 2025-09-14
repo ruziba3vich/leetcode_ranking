@@ -2,11 +2,13 @@ package http
 
 import (
 	"context"
+	"database/sql"
 	"errors"
 	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/ruziba3vich/leetcode_ranking/db/users_storage"
 	"github.com/ruziba3vich/leetcode_ranking/internal/dto"
 	"github.com/ruziba3vich/leetcode_ranking/internal/errors_"
 	"github.com/ruziba3vich/leetcode_ranking/internal/service"
@@ -38,4 +40,38 @@ func (h *Handler) CreateUser(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, gin.H{"data": response})
+}
+
+func (h *Handler) GetUsersByCountry(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c.Request.Context(), 10*time.Second)
+	defer cancel()
+
+	var req dto.GetUsersByCountry
+	if err := c.ShouldBindQuery(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if len(req.Country) == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "country code is not provided"})
+		return
+	}
+
+	offset := (req.Page - 1) * req.Limit
+
+	response, err := h.srv.GetUsersByCountry(ctx, &users_storage.GetUsersByCountryParams{
+		CountryCode: sql.NullString{
+			String: req.Country,
+			Valid:  true,
+		},
+		Limit:  int32(req.Limit),
+		Offset: int32(offset),
+	})
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "internal server error"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": response})
 }
