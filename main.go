@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"compress/gzip"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -15,13 +16,15 @@ import (
 	"github.com/andybalholm/brotli"
 )
 
-// GraphQL request structure
+// ----------------------------
+// GraphQL / API data models
+// ----------------------------
+
 type GraphQLRequest struct {
 	Query     string                 `json:"query"`
 	Variables map[string]interface{} `json:"variables"`
 }
 
-// Response structures matching the LeetCode API
 type Badge struct {
 	DisplayName string `json:"displayName"`
 	Icon        string `json:"icon"`
@@ -83,51 +86,54 @@ type GraphQLErrorLocation struct {
 	Column int `json:"column"`
 }
 
-const (
-	leetcodeURL = "https://leetcode.com/graphql"
-)
+const leetcodeURL = "https://leetcode.com/graphql"
 
-// LeetCodeClient handles API requests
+// ----------------------------
+// Client
+// ----------------------------
+
 type LeetCodeClient struct {
 	httpClient *http.Client
 	debug      bool
+	delay      time.Duration
 }
 
-// NewLeetCodeClient creates a new client
-func NewLeetCodeClient(debug bool) *LeetCodeClient {
+func NewLeetCodeClient(debug bool, delay time.Duration) *LeetCodeClient {
 	return &LeetCodeClient{
-		httpClient: &http.Client{
-			Timeout: 30 * time.Second,
-		},
-		debug: debug,
+		httpClient: &http.Client{Timeout: 30 * time.Second},
+		debug:      debug,
+		delay:      delay,
 	}
 }
 
-// decompressResponse handles gzip and brotli decompression
+// ----------------------------
+// HTTP helpers
+// ----------------------------
+
 func decompressResponse(resp *http.Response) ([]byte, error) {
 	var reader io.Reader = resp.Body
-
 	switch resp.Header.Get("Content-Encoding") {
 	case "gzip":
-		gzipReader, err := gzip.NewReader(resp.Body)
+		gr, err := gzip.NewReader(resp.Body)
 		if err != nil {
 			return nil, fmt.Errorf("failed to create gzip reader: %w", err)
 		}
-		defer gzipReader.Close()
-		reader = gzipReader
+		defer gr.Close()
+		reader = gr
 	case "br":
 		reader = brotli.NewReader(resp.Body)
-	case "deflate":
-		// Go's http client automatically handles deflate
+		// deflate is handled by http.Client automatically
 	}
-
 	return io.ReadAll(reader)
 }
 
-// FetchGlobalRanking fetches ranking data for a specific page
+// ----------------------------
+// API calls
+// ----------------------------
+
 func (c *LeetCodeClient) FetchGlobalRanking(page int) (*Response, error) {
 	if c.debug {
-		log.Printf("DEBUG: Starting to fetch page %d", page)
+		log.Printf("DEBUG: Fetching globalRanking page=%d", page)
 	}
 
 	query := `query globalRanking($page: Int) {
@@ -170,22 +176,21 @@ func (c *LeetCodeClient) FetchGlobalRanking(page int) (*Response, error) {
 			"page": page,
 		},
 	}
-
 	jsonData, err := json.Marshal(reqBody)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal request: %w", err)
+		return nil, fmt.Errorf("marshal request: %w", err)
 	}
 
 	if c.debug {
-		log.Printf("DEBUG: Request payload: %s", string(jsonData))
+		log.Printf("DEBUG: Request payload: %s", truncate(string(jsonData), 800))
 	}
 
 	req, err := http.NewRequest("POST", leetcodeURL, bytes.NewBuffer(jsonData))
 	if err != nil {
-		return nil, fmt.Errorf("failed to create request: %w", err)
+		return nil, fmt.Errorf("create request: %w", err)
 	}
 
-	// Set headers similar to the network log
+	// Headers mimicking browser (helps with br/gzip responses & CORS-y behavior)
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "*/*")
 	req.Header.Set("Accept-Language", "en-US,en;q=0.9")
@@ -197,194 +202,184 @@ func (c *LeetCodeClient) FetchGlobalRanking(page int) (*Response, error) {
 	req.Header.Set("Sec-Fetch-Mode", "cors")
 	req.Header.Set("Sec-Fetch-Site", "same-origin")
 
-	if c.debug {
-		log.Printf("DEBUG: Request URL: %s", req.URL.String())
-		log.Printf("DEBUG: Request Method: %s", req.Method)
-		log.Printf("DEBUG: Request Headers:")
-		for name, values := range req.Header {
-			log.Printf("  %s: %s", name, strings.Join(values, ", "))
-		}
-	}
-
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		if c.debug {
-			log.Printf("DEBUG: HTTP request failed: %v", err)
+			log.Printf("DEBUG: HTTP error: %v", err)
 		}
-		return nil, fmt.Errorf("failed to make request: %w", err)
+		return nil, fmt.Errorf("do request: %w", err)
 	}
 	defer resp.Body.Close()
 
 	if c.debug {
-		log.Printf("DEBUG: Response Status: %s (%d)", resp.Status, resp.StatusCode)
-		log.Printf("DEBUG: Response Headers:")
-		for name, values := range resp.Header {
-			log.Printf("  %s: %s", name, strings.Join(values, ", "))
-		}
+		log.Printf("DEBUG: Status: %s", resp.Status)
 	}
 
-	// Handle compressed response
 	body, err := decompressResponse(resp)
 	if err != nil {
-		if c.debug {
-			log.Printf("DEBUG: Failed to decompress response: %v", err)
-		}
-		return nil, fmt.Errorf("failed to decompress response: %w", err)
+		return nil, fmt.Errorf("decompress: %w", err)
 	}
 
 	if c.debug {
-		log.Printf("DEBUG: Response Body Length: %d bytes", len(body))
-		// Only show first 500 chars to avoid overwhelming output
-		bodyStr := string(body)
-		if len(bodyStr) > 500 {
-			log.Printf("DEBUG: Response Body (first 500 chars): %s...", bodyStr[:500])
-		} else {
-			log.Printf("DEBUG: Response Body: %s", bodyStr)
-		}
+		log.Printf("DEBUG: Resp body (%d bytes): %s", len(body), truncate(string(body), 800))
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		// Try to parse the error response
-		var errorResp map[string]interface{}
-		if err := json.Unmarshal(body, &errorResp); err == nil {
-			if c.debug {
-				log.Printf("DEBUG: Parsed error response: %+v", errorResp)
-			}
-		}
-		return nil, fmt.Errorf("unexpected status code: %d, response: %s", resp.StatusCode, string(body))
+		var parsed map[string]interface{}
+		_ = json.Unmarshal(body, &parsed)
+		return nil, fmt.Errorf("unexpected status %d, body: %s", resp.StatusCode, truncate(string(body), 800))
 	}
 
-	var response Response
-	if err := json.Unmarshal(body, &response); err != nil {
-		if c.debug {
-			log.Printf("DEBUG: JSON unmarshal error: %v", err)
-			log.Printf("DEBUG: Raw response for debugging: %s", string(body))
-		}
-		return nil, fmt.Errorf("failed to unmarshal response: %w", err)
+	var out Response
+	if err := json.Unmarshal(body, &out); err != nil {
+		return nil, fmt.Errorf("unmarshal response: %w", err)
 	}
 
-	if c.debug {
-		log.Printf("DEBUG: Successfully parsed response")
-		if len(response.Errors) > 0 {
-			log.Printf("DEBUG: GraphQL errors found: %+v", response.Errors)
-		}
+	if len(out.Errors) > 0 {
+		return nil, fmt.Errorf("GraphQL errors: %+v", out.Errors)
 	}
 
-	// Check for GraphQL errors
-	if len(response.Errors) > 0 {
-		return nil, fmt.Errorf("GraphQL errors: %+v", response.Errors)
-	}
-
-	return &response, nil
+	return &out, nil
 }
 
-// FetchMultiplePages fetches multiple pages of ranking data
-func (c *LeetCodeClient) FetchMultiplePages(startPage, numPages int) ([]RankingNode, error) {
-	var allRankings []RankingNode
+// FetchAllPages pulls page=startPage, learns totalPages, then continues.
+// If maxPages <= 0, it fetches ALL from startPage..totalPages.
+// Otherwise it fetches up to startPage+maxPages-1 (bounded by totalPages).
+func (c *LeetCodeClient) FetchAllPages(startPage, maxPages int) ([]RankingNode, error) {
+	if startPage < 1 {
+		startPage = 1
+	}
 
-	for page := startPage; page < startPage+numPages; page++ {
-		fmt.Printf("Fetching page %d...\n", page)
+	first, err := c.FetchGlobalRanking(startPage)
+	if err != nil {
+		return nil, fmt.Errorf("first page fetch failed: %w", err)
+	}
 
+	totalPages := first.Data.GlobalRanking.TotalPages
+	nodes := append([]RankingNode{}, first.Data.GlobalRanking.RankingNodes...)
+
+	// Determine end page
+	endPage := totalPages
+	if maxPages > 0 {
+		if end := startPage + maxPages - 1; end < endPage {
+			endPage = end
+		}
+	}
+
+	for page := startPage + 1; page <= endPage; page++ {
+		fmt.Printf("Fetching page %d/%d...\n", page, endPage)
 		resp, err := c.FetchGlobalRanking(page)
 		if err != nil {
-			fmt.Printf("Failed to fetch page %d: %v\n", page, err)
+			log.Printf("WARN: Failed to fetch page %d: %v", page, err)
 			continue
 		}
-
-		allRankings = append(allRankings, resp.Data.GlobalRanking.RankingNodes...)
-
-		// Be respectful with API calls
-		time.Sleep(1 * time.Second)
+		nodes = append(nodes, resp.Data.GlobalRanking.RankingNodes...)
+		time.Sleep(c.delay)
 	}
 
-	return allRankings, nil
+	return nodes, nil
 }
 
-// DisplayRankingData prints the ranking data in a readable format
-func DisplayRankingData(resp *Response) {
-	ranking := resp.Data.GlobalRanking
-
-	fmt.Printf("Total Users: %s\n", formatNumber(ranking.TotalUsers))
-	fmt.Printf("Total Pages: %s\n", formatNumber(ranking.TotalPages))
-	fmt.Printf("Users per Page: %d\n", ranking.UserPerPage)
-	fmt.Println(strings.Repeat("-", 80))
-
-	for _, node := range ranking.RankingNodes {
-		fmt.Printf("Rank: %d\n", node.CurrentGlobalRank)
-		fmt.Printf("Username: %s\n", node.User.Username)
-
-		realName := "N/A"
-		if node.User.Profile.RealName != "" {
-			realName = node.User.Profile.RealName
+// (Optional) Your earlier multi-page function retained for reference
+func (c *LeetCodeClient) FetchMultiplePages(startPage, numPages int) ([]RankingNode, error) {
+	var all []RankingNode
+	for p := startPage; p < startPage+numPages; p++ {
+		fmt.Printf("Fetching page %d...\n", p)
+		resp, err := c.FetchGlobalRanking(p)
+		if err != nil {
+			fmt.Printf("Failed to fetch page %d: %v\n", p, err)
+			continue
 		}
-		fmt.Printf("Real Name: %s\n", realName)
-
-		fmt.Printf("Rating: %s\n", node.CurrentRating)
-
-		countryName := "N/A"
-		countryCode := "N/A"
-		if node.User.Profile.CountryName != "" {
-			countryName = node.User.Profile.CountryName
-		}
-		if node.User.Profile.CountryCode != "" {
-			countryCode = node.User.Profile.CountryCode
-		}
-		fmt.Printf("Country: %s (%s)\n", countryName, countryCode)
-		fmt.Printf("Region: %s\n", node.DataRegion)
-
-		if node.User.ActiveBadge != nil {
-			fmt.Printf("Badge: %s\n", node.User.ActiveBadge.DisplayName)
-		}
-
-		fmt.Println(strings.Repeat("-", 40))
+		all = append(all, resp.Data.GlobalRanking.RankingNodes...)
+		time.Sleep(c.delay)
 	}
+	return all, nil
 }
 
-// SaveToJSON saves the response data to a JSON file
+// ----------------------------
+// Utilities
+// ----------------------------
+
 func SaveToJSON(data interface{}, filename string) error {
-	jsonData, err := json.MarshalIndent(data, "", "  ")
+	j, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
-		return fmt.Errorf("failed to marshal data: %w", err)
+		return fmt.Errorf("marshal to json: %w", err)
 	}
-
-	return os.WriteFile(filename, jsonData, 0644)
+	return os.WriteFile(filename, j, 0644)
 }
 
-// formatNumber adds comma separators to numbers
 func formatNumber(n int) string {
 	str := fmt.Sprintf("%d", n)
 	if len(str) <= 3 {
 		return str
 	}
-
-	var result []rune
-	for i, digit := range str {
+	var b []rune
+	for i, d := range str {
 		if i > 0 && (len(str)-i)%3 == 0 {
-			result = append(result, ',')
+			b = append(b, ',')
 		}
-		result = append(result, digit)
+		b = append(b, d)
 	}
-	return string(result)
+	return string(b)
 }
 
-// testSimpleQuery tests with a minimal GraphQL query first
+func truncate(s string, max int) string {
+	if len(s) <= max {
+		return s
+	}
+	return s[:max] + "..."
+}
+
+// Pretty printer for a whole page response (optional).
+func DisplayRankingData(resp *Response) {
+	r := resp.Data.GlobalRanking
+	fmt.Printf("Total Users: %s\n", formatNumber(r.TotalUsers))
+	fmt.Printf("Total Pages: %s\n", formatNumber(r.TotalPages))
+	fmt.Printf("Users per Page: %d\n", r.UserPerPage)
+	fmt.Println(strings.Repeat("-", 80))
+	for _, n := range r.RankingNodes {
+		printNode(n)
+	}
+}
+
+func printNode(n RankingNode) {
+	fmt.Printf("Rank: %d\n", n.CurrentGlobalRank)
+	fmt.Printf("Username: %s\n", n.User.Username)
+
+	real := "N/A"
+	if n.User.Profile.RealName != "" {
+		real = n.User.Profile.RealName
+	}
+	fmt.Printf("Real Name: %s\n", real)
+	fmt.Printf("Rating: %s\n", n.CurrentRating)
+
+	cn := "N/A"
+	cc := "N/A"
+	if n.User.Profile.CountryName != "" {
+		cn = n.User.Profile.CountryName
+	}
+	if n.User.Profile.CountryCode != "" {
+		cc = n.User.Profile.CountryCode
+	}
+	fmt.Printf("Country: %s (%s)\n", cn, cc)
+	fmt.Printf("Region: %s\n", n.DataRegion)
+
+	if n.User.ActiveBadge != nil {
+		fmt.Printf("Badge: %s\n", n.User.ActiveBadge.DisplayName)
+	}
+	fmt.Println(strings.Repeat("-", 40))
+}
+
+// Minimal sanity probe (optional)
 func testSimpleQuery(client *LeetCodeClient) error {
 	log.Println("DEBUG: Testing with a simple query first...")
-
 	simpleQuery := `{
 		globalRanking(page: 1) {
 			totalUsers
 		}
 	}`
-
-	reqBody := GraphQLRequest{
-		Query:     simpleQuery,
-		Variables: map[string]interface{}{},
-	}
-
+	reqBody := GraphQLRequest{Query: simpleQuery, Variables: map[string]interface{}{}}
 	jsonData, _ := json.Marshal(reqBody)
-	log.Printf("DEBUG: Simple query payload: %s", string(jsonData))
-
 	req, _ := http.NewRequest("POST", leetcodeURL, bytes.NewBuffer(jsonData))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "*/*")
@@ -398,43 +393,50 @@ func testSimpleQuery(client *LeetCodeClient) error {
 		return fmt.Errorf("simple query failed: %w", err)
 	}
 	defer resp.Body.Close()
-
-	// Handle compressed response for simple query too
 	body, err := decompressResponse(resp)
 	if err != nil {
 		return fmt.Errorf("failed to decompress simple query response: %w", err)
 	}
-
-	log.Printf("DEBUG: Simple query response (%d): %s", resp.StatusCode, string(body))
-
+	log.Printf("DEBUG: Simple query response (%d): %s", resp.StatusCode, truncate(string(body), 400))
 	return nil
 }
+
+// ----------------------------
+// main
+// ----------------------------
 
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
-	client := NewLeetCodeClient(true) // Enable debug mode
+	// CLI flags for convenience
+	start := flag.Int("start", 1, "Start page (1-indexed)")
+	maxPages := flag.Int("pages", 4, "Number of pages to fetch (<=0 to fetch all)")
+	out := flag.String("out", "leetcode_rankings_pages.json", "Output JSON file")
+	debug := flag.Bool("debug", true, "Enable debug logging")
+	delayMs := flag.Int("delay_ms", 1000, "Delay between page requests (milliseconds)")
+	runProbe := flag.Bool("probe", false, "Run a simple query probe first")
+	flag.Parse()
 
-	fmt.Println("Fetching LeetCode Global Rankings with DEBUG enabled...")
+	client := NewLeetCodeClient(*debug, time.Duration(*delayMs)*time.Millisecond)
 
-	// Test with a simple query first
-	if err := testSimpleQuery(client); err != nil {
-		log.Printf("Simple query test failed: %v", err)
+	fmt.Printf("Fetching LeetCode Global Rankings (pages starting at %d, count %d)...\n", *start, *maxPages)
+
+	if *runProbe {
+		if err := testSimpleQuery(client); err != nil {
+			log.Printf("Probe failed: %v", err)
+		}
 	}
 
-	// Try the full query
-	resp, err := client.FetchGlobalRanking(1)
+	nodes, err := client.FetchAllPages(*start, *maxPages)
 	if err != nil {
-		log.Fatalf("Failed to fetch ranking data: %v", err)
+		log.Fatalf("Failed to fetch pages: %v", err)
 	}
 
-	log.Println("DEBUG: Successfully fetched data!")
-	DisplayRankingData(resp)
+	fmt.Printf("Fetched %d users total\n", len(nodes))
 
-	// Save to file
-	if err := SaveToJSON(resp, "leetcode_rankings.json"); err != nil {
+	if err := SaveToJSON(nodes, *out); err != nil {
 		log.Printf("Failed to save to file: %v", err)
 	} else {
-		fmt.Println("\nData saved to leetcode_rankings.json")
+		fmt.Printf("Data saved to %s\n", *out)
 	}
 }
