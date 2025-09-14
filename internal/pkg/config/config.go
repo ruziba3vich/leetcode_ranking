@@ -31,14 +31,14 @@ type Config struct {
 
 // Load reads configuration from environment variables
 func Load() *Config {
-	pgPort, err := strconv.Atoi(getEnv("POSTGRES_PORT", "5432"))
+	pgPort, err := strconv.Atoi(getEnv("POSTGRES_PORT", "5433"))
 	if err != nil {
 		log.Fatalf("invalid POSTGRES_PORT: %v", err)
 	}
 
 	return &Config{
 		Postgres: &PostgresConfig{
-			Host:     getEnv("POSTGRES_HOST", "94.250.203.149"),
+			Host:     getEnv("POSTGRES_HOST", "89.117.58.248"),
 			Port:     pgPort,
 			User:     getEnv("POSTGRES_USER", "leetcode_rankings_user"),
 			Password: getEnv("POSTGRES_PASSWORD", "leetcode_rankings_pwd"),
