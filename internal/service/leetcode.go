@@ -17,6 +17,7 @@ import (
 
 	"github.com/andybalholm/brotli"
 	"github.com/ruziba3vich/leetcode_ranking/db/users_storage"
+	"github.com/ruziba3vich/leetcode_ranking/internal/errors_"
 )
 
 const leetcodeURL = "https://leetcode.com/graphql"
@@ -492,7 +493,7 @@ func (s *userService) FetchLeetCodeUser(ctx context.Context, username string) (O
 		return out, fmt.Errorf("leetcode fetch failed for %q: %w", username, err)
 	}
 	if resp.Data.MatchedUser == nil {
-		return out, fmt.Errorf("no matchedUser for %q", username)
+		return out, errors_.ErrUserNotAvailable
 	}
 
 	// pick AC "All"
