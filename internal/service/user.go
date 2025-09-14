@@ -2,10 +2,12 @@ package service
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 	"strings"
 
 	"github.com/ruziba3vich/leetcode_ranking/db/users_storage"
+	"github.com/ruziba3vich/leetcode_ranking/internal/dto"
 	logger "github.com/ruziba3vich/prodonik_lgger"
 )
 
@@ -23,7 +25,38 @@ func NewUserService(storage users_storage.Querier, leetCodeClient *LeetCodeClien
 	}
 }
 
-func (s *userService) CreateUser(ctx context.Context, arg *users_storage.CreateUserParams) (*users_storage.UserDatum, error) {
+func (s *userService) CreateUser(ctx context.Context, req *dto.CreateUserRequest) (*users_storage.UserDatum, error) {
+	data, err := s.FetchLeetCodeUser(ctx, req.Username)
+	if err != nil {
+		s.logger.Error("could not fetch user", map[string]any{"error": err.Error(), "username": req.Username})
+		return nil, err
+	}
+	arg := &users_storage.CreateUserParams{
+		Username: data.User.Username,
+		UserSlug: data.User.Profile.UserSlug,
+		UserAvatar: sql.NullString{
+			String: data.User.Profile.UserAvatar,
+			Valid:  true,
+		},
+		CountryCode: sql.NullString{
+			String: data.User.Profile.CountryCode,
+			Valid:  true,
+		},
+		CountryName: sql.NullString{
+			String: data.User.Profile.CountryName,
+			Valid:  true,
+		},
+		RealName: sql.NullString{
+			String: data.User.Profile.RealName,
+			Valid:  true,
+		},
+		Typename: sql.NullString{
+			String: data.User.Profile.Typename,
+			Valid:  true,
+		},
+		TotalProblemsSolved: int32(data.User.Profile.TotalProblemsSolved),
+		TotalSubmissions:    int32(data.User.Profile.TotalSubmissions),
+	}
 	if strings.TrimSpace(arg.Username) == "" {
 		return nil, fmt.Errorf("username is required")
 	}
