@@ -130,15 +130,11 @@ func (s *UserService) SyncLeaderboard(ctx context.Context, opts SyncOptions) err
 	if opts.Delay <= 0 {
 		opts.Delay = 800 * time.Millisecond
 	}
-
-	// build API client (headers in your file already mimic a browser)
-	client := NewLeetCodeClient(true /*debug*/, opts.Delay)
-
 	s.logger.Infof("sync: collecting usernames start=%d pages=%d workers=%d delay=%s",
 		opts.StartPage, opts.Pages, opts.Workers, opts.Delay)
 
 	// 1) Gather usernames from the leaderboard
-	usernames, endPage, err := client.CollectUsernames(opts.StartPage, opts.Pages)
+	usernames, endPage, err := s.CollectUsernames(opts.StartPage, opts.Pages)
 	if err != nil {
 		s.logger.Errorf("sync: collect usernames failed: %v", err)
 		return fmt.Errorf("collect usernames: %w", err)
@@ -154,7 +150,7 @@ func (s *UserService) SyncLeaderboard(ctx context.Context, opts SyncOptions) err
 		defer wg.Done()
 		for j := range jobs {
 			// fetch profile+stats
-			resp, err := client.FetchUser(j.Username)
+			resp, err := s.FetchUser(j.Username)
 			if err != nil || resp.Data.MatchedUser == nil {
 				if err != nil {
 					s.logger.Errorf("sync: fetch user=%s error=%v", j.Username, err)
@@ -363,9 +359,9 @@ type ACStat struct {
 	Submissions int    `json:"submissions"`
 }
 
-func (c *LeetCodeClient) FetchUser(username string) (*ResponseUser, error) {
+func (s *UserService) FetchUser(username string) (*ResponseUser, error) {
 	var out ResponseUser
-	if err := c.doGraphQL(queryMatchedUser, map[string]interface{}{"username": username}, &out); err != nil {
+	if err := s.leetCodeClient.doGraphQL(queryMatchedUser, map[string]interface{}{"username": username}, &out); err != nil {
 		return nil, err
 	}
 	if len(out.Errors) > 0 {
@@ -375,12 +371,12 @@ func (c *LeetCodeClient) FetchUser(username string) (*ResponseUser, error) {
 }
 
 // Fetch usernames from ranking pages: start..end inclusive
-func (c *LeetCodeClient) CollectUsernames(startPage, maxPages int) ([]string, int, error) {
+func (s *UserService) CollectUsernames(startPage, maxPages int) ([]string, int, error) {
 	if startPage < 1 {
 		startPage = 1
 	}
 
-	first, err := c.FetchRankingPage(startPage)
+	first, err := s.FetchRankingPage(startPage)
 	if err != nil {
 		return nil, 0, fmt.Errorf("fetch first page: %w", err)
 	}
@@ -412,7 +408,7 @@ func (c *LeetCodeClient) CollectUsernames(startPage, maxPages int) ([]string, in
 	// Remaining pages
 	for p := startPage + 1; p <= endPage; p++ {
 		fmt.Printf("Fetching rankings page %d/%d...\n", p, endPage)
-		resp, err := c.FetchRankingPage(p)
+		resp, err := s.FetchRankingPage(p)
 		if err != nil {
 			log.Printf("WARN: page %d failed: %v", p, err)
 			continue
@@ -427,16 +423,16 @@ func (c *LeetCodeClient) CollectUsernames(startPage, maxPages int) ([]string, in
 				users = append(users, u)
 			}
 		}
-		time.Sleep(c.delay)
+		time.Sleep(s.leetCodeClient.delay)
 	}
 
 	sort.Strings(users)
 	return users, endPage, nil
 }
 
-func (c *LeetCodeClient) FetchRankingPage(page int) (*ResponseGlobal, error) {
+func (s *UserService) FetchRankingPage(page int) (*ResponseGlobal, error) {
 	var out ResponseGlobal
-	if err := c.doGraphQL(queryGlobalRanking, map[string]interface{}{"page": page}, &out); err != nil {
+	if err := s.leetCodeClient.doGraphQL(queryGlobalRanking, map[string]interface{}{"page": page}, &out); err != nil {
 		return nil, err
 	}
 	if len(out.Errors) > 0 {
@@ -491,10 +487,7 @@ func (s *UserService) FetchLeetCodeUser(ctx context.Context, username string) (O
 		return out, fmt.Errorf("username is required")
 	}
 
-	// lightweight client (quiet logs; small delay not really used for single call)
-	client := NewLeetCodeClient(false /*debug*/, 300*time.Millisecond)
-
-	resp, err := client.FetchUser(username)
+	resp, err := s.FetchUser(username)
 	if err != nil {
 		return out, fmt.Errorf("leetcode fetch failed for %q: %w", username, err)
 	}

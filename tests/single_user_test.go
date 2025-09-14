@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"testing"
+	"time"
 
 	"github.com/ruziba3vich/leetcode_ranking/internal/service"
 	logger "github.com/ruziba3vich/prodonik_lgger"
@@ -19,11 +20,12 @@ var (
 
 func GetUserService() *service.UserService {
 	if factory.service == nil {
+		leetcodeClient := service.NewLeetCodeClient(true, 800*time.Millisecond)
 		lgg, err := logger.NewLogger("app.log")
 		if err != nil {
 			log.Fatal(err)
 		}
-		factory.service = service.NewUserService(nil, *lgg)
+		factory.service = service.NewUserService(nil, leetcodeClient, *lgg)
 	}
 
 	return factory.service

@@ -10,12 +10,17 @@ import (
 )
 
 type UserService struct {
-	storage users_storage.Querier
-	logger  logger.Logger
+	leetCodeClient *LeetCodeClient
+	storage        users_storage.Querier
+	logger         logger.Logger
 }
 
-func NewUserService(storage users_storage.Querier, log logger.Logger) *UserService {
-	return &UserService{storage: storage, logger: log}
+func NewUserService(storage users_storage.Querier, leetCodeClient *LeetCodeClient, log logger.Logger) *UserService {
+	return &UserService{
+		storage:        storage,
+		leetCodeClient: leetCodeClient,
+		logger:         log,
+	}
 }
 
 func (s *UserService) CreateUser(ctx context.Context, arg *users_storage.CreateUserParams) (*users_storage.UserDatum, error) {
