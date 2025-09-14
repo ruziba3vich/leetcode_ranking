@@ -38,11 +38,12 @@ LIMIT $1 OFFSET $2;
 
 -- name: GetUsersByCountry :many
 SELECT * FROM user_data
+WHERE country_code = $1
 ORDER BY 
   total_problems_solved DESC,
   total_submissions ASC,
   username ASC
-LIMIT $1 OFFSET $2;
+LIMIT $2 OFFSET $3;
 
 -- name: UpdateUserByUsername :one
 UPDATE user_data
