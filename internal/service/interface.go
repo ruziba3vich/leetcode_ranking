@@ -4,11 +4,12 @@ import (
 	"context"
 
 	"github.com/ruziba3vich/leetcode_ranking/db/users_storage"
+	"github.com/ruziba3vich/leetcode_ranking/internal/dto"
 )
 
 type UserService interface {
 	CollectUsernames(startPage int, maxPages int) ([]string, int, error)
-	CreateUser(ctx context.Context, arg *users_storage.CreateUserParams) (*users_storage.UserDatum, error)
+	CreateUser(ctx context.Context, req *dto.CreateUserRequest) (*users_storage.UserDatum, error)
 	DeleteUserByUsername(ctx context.Context, username string) error
 	FetchLeetCodeUser(ctx context.Context, username string) (OutputUser, error)
 	FetchRankingPage(page int) (*ResponseGlobal, error)
