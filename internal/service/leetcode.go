@@ -18,6 +18,7 @@ import (
 	"github.com/andybalholm/brotli"
 	"github.com/ruziba3vich/leetcode_ranking/db/users_storage"
 	"github.com/ruziba3vich/leetcode_ranking/internal/errors_"
+	"github.com/ruziba3vich/leetcode_ranking/internal/pkg/config"
 )
 
 const leetcodeURL = "https://leetcode.com/graphql"
@@ -88,7 +89,7 @@ var queryMatchedUser = `query userProfilePublicProfile($username: String!) {
 	}
   }`
 
-func NewLeetCodeClient(debug bool, delay time.Duration) *LeetCodeClient {
+func NewLeetCodeClient(cfg *config.Config) *LeetCodeClient {
 	h := make(http.Header)
 	h.Set("Content-Type", "application/json")
 	h.Set("Accept", "*/*")
@@ -104,8 +105,8 @@ func NewLeetCodeClient(debug bool, delay time.Duration) *LeetCodeClient {
 
 	return &LeetCodeClient{
 		httpClient: &http.Client{Timeout: 30 * time.Second},
-		debug:      debug,
-		delay:      delay,
+		debug:      cfg.Debug,
+		delay:      cfg.Delay,
 		headers:    h,
 	}
 }
