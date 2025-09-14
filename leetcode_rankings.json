@@ -1,0 +1,561 @@
+{
+  "data": {
+    "globalRanking": {
+      "totalUsers": 760199,
+      "totalPages": 30164,
+      "userPerPage": 25,
+      "rankingNodes": [
+        {
+          "ranking": "[12, 1, 1, 6, 3, 43, 1, 1, 374, 2, 1325, 9, 4, 4, 19, 165, 26, 2, 1, 4, 32, 8, 1, 1, 1, 1]",
+          "currentRating": "3702.788",
+          "currentGlobalRanking": 1,
+          "dataRegion": "US",
+          "user": {
+            "username": "fjzzq2002",
+            "nameColor": "legendary",
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "fjzzq2002",
+              "userAvatar": "https://assets.leetcode.com/users/fjzzq2002/avatar_1735951462.png",
+              "countryCode": "",
+              "countryName": "",
+              "realName": "Miruu",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[11, 1, 1, 1, 2, 18, 1, 3, 65, 1, 2, 1, 3, 1, 5, 69, 17, 146, 7, 1, 21, 5, 21, 76, 9, 1, 1, 1, 1, 1, 2, 3, 4, 57, 7, 1, 1, 2, 2, 1, 3, 3, 2, 1, 2, 3, 2, 1, 1, 3, 1]",
+          "currentRating": "3686.191",
+          "currentGlobalRanking": 2,
+          "dataRegion": "US",
+          "user": {
+            "username": "neal_wu",
+            "nameColor": "legendary",
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "neal_wu",
+              "userAvatar": "https://assets.leetcode.com/users/neal_wu/avatar_1737814509.png",
+              "countryCode": "US",
+              "countryName": "United States",
+              "realName": "Neal Wu",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[2661, 576, 216, 166, 148, 18, 17, 36, 11, 179, 100, 91, 6, 64, 6, 140, 15, 58, 93, 808, 57, 461, 1547, 14, 11, 39, 66, 129, 2, 5, 17, 2, 10, 17, 2, 67, 59, 15, 24, 11, 16, 26, 18, 89, 18, 21, 25, 4, 165, 42, 7, 12, 3, 228, 7, 82, 1, 4, 1, 51, 8, 58, 2, 5, 4, 25, 7, 379, 1, 83, 4, 50, 85, 6, 16, 1, 24, 41, 56, 9, 2, 1, 3, 1]",
+          "currentRating": "3644.841",
+          "currentGlobalRanking": 3,
+          "dataRegion": "US",
+          "user": {
+            "username": "Yawn_Sean",
+            "nameColor": "legendary",
+            "activeBadge": {
+              "displayName": "100 Days Badge 2022",
+              "icon": "https://leetcode.com/static/images/badges/2022/lg/2022-annual-100.png",
+              "__typename": "UserBadgeNode"
+            },
+            "profile": {
+              "userSlug": "Yawn_Sean",
+              "userAvatar": "https://assets.leetcode.com/users/1900015431/avatar_1633874346.png",
+              "countryCode": "",
+              "countryName": "",
+              "realName": "Yawn_Sean",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[1786, 6507, 1582, 2500, 1161, 7563, 2251, 3843, 448, 688, 834, 1621, 5217, 8183, 850, 589, 3008, 5584, 898, 1615, 125, 979, 728, 229, 118, 676, 438, 74, 1234, 29, 16, 492, 323, 376, 482, 974, 1026, 17, 9, 166, 313, 407, 75, 14, 116, 869, 17, 186, 13, 39, 64, 114, 1583, 489, 13, 73, 84, 161, 56, 85, 124, 56, 16, 4, 23, 52, 105, 7, 126, 158, 6, 16, 1, 19, 77, 14, 3, 68, 91, 7, 52, 12, 1, 550, 1, 217, 12, 209, 78, 15, 24, 2, 1, 7, 26, 1, 11, 3, 18, 26, 3, 10, 1, 3, 11, 9, 2]",
+          "currentRating": "3611.476",
+          "currentGlobalRanking": 4,
+          "dataRegion": "CN",
+          "user": {
+            "username": "ahmed007boss",
+            "nameColor": null,
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "Yawn_Sean",
+              "userAvatar": "https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/users/yawn_sean/avatar_1654149069.png",
+              "countryCode": "",
+              "countryName": "中国",
+              "realName": "小羊肖恩",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[230, 46, 270, 21, 127, 8, 119, 99, 9, 49, 9, 215, 57, 17, 38, 21, 58, 15, 16, 28, 7, 63, 6, 89, 39, 11, 6, 27, 108, 13, 73, 30, 3, 39, 5, 18, 12, 9, 4, 1, 1, 2, 2, 4, 2, 2, 10, 4, 44, 1, 27, 8, 35, 1, 5, 37, 443, 23, 5, 11, 22, 3, 6, 5, 203, 4, 24, 8, 4, 34, 24, 9, 3, 23, 9, 8, 156, 21, 6, 9, 2, 10, 6, 8, 15, 31, 8, 2, 9, 28, 3, 63, 3, 45, 11, 8, 37, 1, 7, 1, 13, 30, 40, 10, 5, 7, 23, 28, 9, 1, 7, 36, 7, 10, 41, 10, 119, 4, 2, 16, 3, 25, 14, 17, 277, 18, 19, 89, 5, 40, 33, 7, 1, 2, 63, 24, 2, 2, 2, 3, 1, 7, 40, 3, 108, 1]",
+          "currentRating": "3599.473",
+          "currentGlobalRanking": 5,
+          "dataRegion": "CN",
+          "user": {
+            "username": "liming-v",
+            "nameColor": null,
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "Heltion",
+              "userAvatar": "https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/users/heltion/avatar_1587213058.png",
+              "countryCode": "",
+              "countryName": "中国",
+              "realName": "何逊",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[377, 8, 638, 447, 3, 340, 70, 776, 219, 43, 53, 1, 34, 3, 28, 93, 139, 196, 57, 9, 240, 45, 33, 54, 170, 4, 1, 35, 12, 110, 856, 100, 27, 2, 598, 1, 16, 74, 26, 2, 88, 217, 22, 38, 10, 2, 10, 26, 18, 2, 18, 11, 4, 69, 1, 15, 12, 238, 20, 12, 58, 51, 3, 20, 120, 4, 4, 12, 12, 9, 121, 2, 1, 1, 3, 2, 1, 1, 2, 443, 1, 3, 79, 52, 2, 1, 2, 1, 174, 3, 6, 22, 14, 19, 2, 10, 5, 2, 28, 11]",
+          "currentRating": "3589.337",
+          "currentGlobalRanking": 6,
+          "dataRegion": "US",
+          "user": {
+            "username": "numb3r5",
+            "nameColor": "legendary",
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "numb3r5",
+              "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+              "countryCode": "AU",
+              "countryName": "Australia",
+              "realName": "Joshua Chen",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[495, 534, 431, 46, 36, 203, 801, 1458, 9, 127, 1666, 594, 260, 267, 549, 21, 25, 91, 1, 168, 154, 23, 11, 15, 12, 8, 19, 79, 1, 26, 74, 2, 47, 699, 5, 108, 16, 24, 73, 29, 25, 14, 39, 36, 225, 1, 37, 27, 9, 6, 1, 2, 223, 18, 3, 19, 3, 291, 36, 20, 1, 25, 12, 41, 3, 23, 49, 3, 5, 56, 1, 90, 425, 32, 54, 5180, 1, 27, 37, 1, 194, 4, 7, 47, 2, 7, 3, 7]",
+          "currentRating": "3506.396",
+          "currentGlobalRanking": 7,
+          "dataRegion": "US",
+          "user": {
+            "username": "PurpleCrayon",
+            "nameColor": "legendary",
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "PurpleCrayon",
+              "userAvatar": "https://assets.leetcode.com/users/rohingarg123/avatar_1584377597.png",
+              "countryCode": "",
+              "countryName": "",
+              "realName": "Rohin Garg",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[124, 1890, 72, 96, 81, 1588, 33, 15, 49, 29, 53, 235, 28, 241, 1026, 83, 28, 34, 42, 20, 45, 70, 37, 18, 210, 5, 140, 13, 81, 103, 108, 62, 1009, 320, 48, 30, 18, 188, 2, 29, 22, 37, 97, 47, 16, 1, 36, 37, 4, 13, 1, 2, 1, 1, 19, 60, 10, 13, 20, 36, 1]",
+          "currentRating": "3499.547",
+          "currentGlobalRanking": 8,
+          "dataRegion": "CN",
+          "user": {
+            "username": "hankray",
+            "nameColor": null,
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "sserxhs",
+              "userAvatar": "https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/users/sserxhs/avatar_1622949152.png",
+              "countryCode": "",
+              "countryName": "中国",
+              "realName": "SSerxhs",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[344, 202, 80, 2, 21, 4, 1, 1591, 3, 72, 2, 4, 4, 5, 23, 211, 3, 1, 23, 47, 2, 1, 71, 37, 2, 1, 18, 30, 21, 1, 10, 9, 10, 1, 16, 8, 17, 7, 70, 21, 5, 8, 1, 5, 17, 13, 2, 1, 36, 8]",
+          "currentRating": "3490.472",
+          "currentGlobalRanking": 9,
+          "dataRegion": "CN",
+          "user": {
+            "username": "HazemAllaham",
+            "nameColor": null,
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "young_sean",
+              "userAvatar": "https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/users/young_sean/avatar_1677902710.png",
+              "countryCode": "",
+              "countryName": "",
+              "realName": "小咩肖恩",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[31, 9, 22, 41, 11380, 159, 2116, 21, 7, 5, 15, 216, 252, 50, 3, 6, 10, 318, 25, 3, 510, 29, 15, 26, 342, 1, 10, 26, 1, 32, 1, 12, 35, 4, 5, 4, 22, 29, 1, 1, 5, 285, 2, 3, 45, 6, 21, 98, 2, 12, 5182, 5, 8, 12, 4, 3, 3, 45]",
+          "currentRating": "3483.996",
+          "currentGlobalRanking": 10,
+          "dataRegion": "US",
+          "user": {
+            "username": "dnialh",
+            "nameColor": "legendary",
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "dnialh",
+              "userAvatar": "https://assets.leetcode.com/users/avatars/avatar_1655848184.png",
+              "countryCode": "",
+              "countryName": "",
+              "realName": "dnialh",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[17, 3, 4, 39, 6, 1, 3, 14, 2, 2, 15, 9, 31, 4, 42, 6, 5, 17, 1, 4, 204, 4, 5, 1, 10, 1, 7, 8, 73, 35, 34, 4, 23, 39, 12, 9, 472, 12, 133, 14, 12, 9, 1, 3, 5, 11, 5, 4, 15, 7, 2, 4, 57, 3, 22, 19, 11, 1, 24, 6, 23, 9, 17, 19, 4, 24, 52, 3, 147, 6, 52, 5, 40, 11, 25, 4, 6, 2, 3, 5, 3, 16, 8, 41, 48, 3, 29, 2, 159, 29, 51, 3, 426, 3, 58, 1, 65, 11, 4, 53, 19, 5, 5, 5, 5, 9, 19, 6, 173, 2, 36, 4, 42, 3, 34, 4, 3, 15, 9, 2, 2, 8, 2, 2, 4, 5, 1, 12, 59, 3, 22, 6, 25, 39, 47, 12, 9, 32, 10, 45, 4, 31, 13, 4, 7, 14, 9, 222, 1, 160, 73, 20, 13, 7, 8, 4, 3, 8, 12, 29, 3, 61, 14, 5, 125, 2, 4, 6, 4, 16, 17, 4, 32, 9, 31, 1, 24, 20, 17, 2, 44, 4, 27, 6, 11, 2, 18, 4, 2, 11, 31, 42, 2, 6, 14, 10, 114, 12, 15, 6, 15, 7, 438, 16, 15, 259, 15, 10, 51, 13, 5, 3, 2, 7, 3, 3, 58, 1, 1, 295, 11, 13, 21, 76, 1, 456, 22, 4, 1, 4, 25, 25, 3, 7, 5, 16, 14, 17, 17, 8, 23, 22, 3, 8, 5, 1, 12, 1, 21, 18, 10, 8, 1, 1, 50, 91, 4, 25, 48, 22, 4, 1, 64, 4, 1, 53, 13, 9, 27, 8, 13, 35, 20, 86, 17, 12, 9, 20, 8, 6, 25, 2, 10, 60, 14, 2, 6, 50, 23, 2, 2, 17]",
+          "currentRating": "3478.167",
+          "currentGlobalRanking": 11,
+          "dataRegion": "CN",
+          "user": {
+            "username": "zhoupeiyun",
+            "nameColor": null,
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "JOHNKRAM",
+              "userAvatar": "https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/users/johnkram/avatar_1593402741.png",
+              "countryCode": "",
+              "countryName": "中国",
+              "realName": "汪乐平",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[6, 810, 179, 4, 249, 13, 44, 1, 38, 278, 9, 27, 1, 32, 8, 16, 5, 30, 7, 1, 8, 5, 2, 7, 37, 416, 17, 14, 2972, 7, 6, 4, 5, 2, 1, 50, 12, 8, 6, 9, 50, 12, 127, 22, 19, 34, 2, 14, 1, 43, 22, 52, 34, 422, 2, 28, 171, 4, 12, 14, 34, 74, 1, 5, 13]",
+          "currentRating": "3453.15",
+          "currentGlobalRanking": 12,
+          "dataRegion": "US",
+          "user": {
+            "username": "fmota",
+            "nameColor": "legendary",
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "fmota",
+              "userAvatar": "https://assets.leetcode.com/users/fmota973/avatar_1586010134.png",
+              "countryCode": "BR",
+              "countryName": "Brazil",
+              "realName": "fmota",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[76, 25, 39, 11, 4, 53, 5, 64, 21, 7, 19, 19, 17, 1, 32, 43, 191, 10, 13, 145, 29, 2, 87, 4, 34, 38, 32, 11, 121, 226, 29, 19, 31, 256, 5, 8, 16, 13, 1, 5]",
+          "currentRating": "3443.203",
+          "currentGlobalRanking": 13,
+          "dataRegion": "US",
+          "user": {
+            "username": "pandaforever",
+            "nameColor": "legendary",
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "pandaforever",
+              "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+              "countryCode": "",
+              "countryName": "",
+              "realName": "pandaforever",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[27, 5, 31, 7, 9, 10, 281, 51, 17, 89, 3, 1, 5, 4, 1, 275, 5, 29, 31, 21, 10, 17, 30, 176, 1, 5, 432, 18, 14, 18, 24, 41, 7, 416, 44, 45, 5, 21, 3, 11, 27, 50, 81, 33, 8, 61, 10, 228, 35, 113, 20, 23, 11, 10, 53, 70, 17, 108, 7, 4, 12, 2, 80, 10, 13, 17, 18, 19, 9, 103, 47, 48, 1, 24, 14, 51, 3, 97, 18, 18, 54, 26, 30, 8, 2, 71, 22, 44, 2, 6, 2, 5, 10, 13, 7, 9, 1, 62, 109]",
+          "currentRating": "3433.988",
+          "currentGlobalRanking": 14,
+          "dataRegion": "US",
+          "user": {
+            "username": "jonathanirvings",
+            "nameColor": "legendary",
+            "activeBadge": {
+              "displayName": "50 Days Badge 2022",
+              "icon": "https://leetcode.com/static/images/badges/2022/lg/2022-annual-50.png",
+              "__typename": "UserBadgeNode"
+            },
+            "profile": {
+              "userSlug": "jonathanirvings",
+              "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+              "countryCode": "SG",
+              "countryName": "Singapore",
+              "realName": "jonathanirvings",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[198, 1, 1, 1, 1759, 119, 12, 1, 22, 7, 21, 1, 2, 18, 6, 1, 106, 1, 19, 12, 8, 10, 1, 4, 6, 1, 38, 217, 1, 1, 14, 1, 1, 14, 1, 6, 14, 12, 1, 163, 13, 1, 3, 16, 22, 536, 23, 11, 11, 77, 5, 1]",
+          "currentRating": "3425.997",
+          "currentGlobalRanking": 15,
+          "dataRegion": "US",
+          "user": {
+            "username": "xiaowuc1",
+            "nameColor": null,
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "xiaowuc1",
+              "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+              "countryCode": "US",
+              "countryName": "United States",
+              "realName": "xiaowuc1",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[208, 137, 359, 780, 215, 308, 359, 668, 87, 262, 91, 187, 316, 228, 434, 106, 45, 421, 110, 419, 84, 381, 317, 21, 124, 121, 789, 54, 117, 761, 384, 170, 39, 150, 116, 172, 130, 220, 1273, 37, 116, 16, 152, 45, 71, 386, 46, 73, 229, 85, 23, 32, 80, 586, 57, 22, 197, 72, 15, 402, 11, 1901, 74, 20, 78, 45, 91, 164, 23, 44, 133, 77, 53, 255, 12, 58, 29, 15, 55, 112, 244, 157, 419, 38, 22, 107, 32, 24, 55, 30, 392, 28, 2, 157, 141, 204, 27, 246, 10, 172, 65, 44, 16, 2, 136, 71, 113, 79, 13, 19, 10, 17, 16, 155, 24, 24, 64, 19, 2, 130, 6, 20, 42, 40, 17, 193, 146, 106, 3, 10, 26, 17, 43, 6, 13, 33, 3, 6, 363, 7, 12, 19, 304, 5, 212, 20, 225, 25, 1, 7, 87, 6, 1, 29, 3, 57, 6, 1, 16, 8, 5, 22, 51, 18, 50, 7, 896, 84, 11, 17, 10, 12, 3257, 35, 4, 2, 11, 4, 70, 3, 25, 7, 2, 2, 9, 31, 2, 10, 58, 5, 12, 13, 43, 1, 18, 28, 42, 4, 22, 21, 1, 8, 3, 2, 30, 2, 32, 16, 5, 38, 7, 21, 7, 10, 3, 12, 32, 9, 26, 43, 6, 5, 14, 11, 22, 2, 30, 31, 5, 7, 5, 4, 11, 11, 3, 5, 2, 4, 7, 9, 45, 49, 33, 29, 28, 10, 10, 24, 3, 1731, 7, 3, 5, 3, 8, 3, 19, 12, 3, 30, 40, 15, 21, 4, 3, 4, 6, 12]",
+          "currentRating": "3422.6073672146267",
+          "currentGlobalRanking": 16,
+          "dataRegion": "CN",
+          "user": {
+            "username": "Carefreejs",
+            "nameColor": null,
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "endlesscheng",
+              "userAvatar": "https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/users/endlesscheng/avatar_1690721039.png",
+              "countryCode": "",
+              "countryName": "",
+              "realName": "灵茶山艾府",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[29, 1, 3, 11, 13, 6, 34, 2, 1, 3, 10, 7, 8, 13, 2, 7, 27, 5, 3, 5, 5, 10, 28, 4, 19, 12, 9, 25, 6, 53, 16, 5, 1, 5, 1, 56, 13, 13, 39]",
+          "currentRating": "3406.361",
+          "currentGlobalRanking": 17,
+          "dataRegion": "CN",
+          "user": {
+            "username": "Nahin_Imtiaz",
+            "nameColor": null,
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "int65536",
+              "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+              "countryCode": "",
+              "countryName": "中国",
+              "realName": "int65536",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[136, 259, 313, 209, 293, 715, 116, 249, 547, 206, 389, 172, 1133, 346, 709, 799, 229, 887, 65, 1024, 1017, 160, 639, 1810, 57, 517, 145, 148, 256, 25, 334, 1989, 123, 6, 179, 326, 45, 3, 19, 75, 4, 266, 1, 37, 1432, 42, 1, 20, 100, 272, 1, 11, 43, 2, 8, 308, 10, 2, 322, 568, 32, 110, 4, 4, 1, 3, 39, 1, 1, 210, 1, 25, 3, 2096, 5, 157, 3, 49, 1, 44, 24, 6]",
+          "currentRating": "3401.816",
+          "currentGlobalRanking": 18,
+          "dataRegion": "US",
+          "user": {
+            "username": "qeetcode",
+            "nameColor": null,
+            "activeBadge": {
+              "displayName": "Dec LeetCoding Challenge",
+              "icon": "/static/images/badges/dcc-2021-12.png",
+              "__typename": "UserBadgeNode"
+            },
+            "profile": {
+              "userSlug": "qeetcode",
+              "userAvatar": "https://assets.leetcode.com/users/rainingpeace/avatar_1617292193.png",
+              "countryCode": "US",
+              "countryName": "United States",
+              "realName": "Sam Lee",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[37, 4973, 11387, 18, 45, 49, 85, 7, 1, 36, 110, 3, 11, 4, 12, 233, 26, 110, 110, 31, 1, 187, 44, 37, 16, 51, 5, 8, 26, 31, 1, 1, 51, 8, 24, 243, 2012, 113, 2, 58, 36, 3, 67, 9, 38, 81, 43, 3, 48, 2, 198, 17, 72, 5, 30, 14, 3, 14, 198, 51, 26, 11, 14, 4, 4, 239, 49, 11, 312, 86, 9, 2, 1]",
+          "currentRating": "3388.898",
+          "currentGlobalRanking": 19,
+          "dataRegion": "CN",
+          "user": {
+            "username": "Shandse40",
+            "nameColor": null,
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "moransky",
+              "userAvatar": "https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/users/moransky/avatar_1706518829.png",
+              "countryCode": "",
+              "countryName": "中国",
+              "realName": "白天",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[12461, 4555, 7951, 1060, 2153, 695, 872, 4124, 1325, 2259, 3100, 1198, 3056, 3658, 3347, 2085, 2374, 1152, 1898, 1385, 148, 513, 54, 1858, 315, 2150, 1140, 31, 115, 96, 44, 41, 8, 27, 7, 15, 12, 15, 13, 82, 12, 126, 6, 7, 4, 11, 9, 3, 14, 1, 7, 1, 2, 7, 9, 26693, 1, 1]",
+          "currentRating": "3369.301",
+          "currentGlobalRanking": 20,
+          "dataRegion": "US",
+          "user": {
+            "username": "Naruto_x",
+            "nameColor": null,
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "Naruto_x",
+              "userAvatar": "https://assets.leetcode.com/users/Naruto_x/avatar_1730882090.png",
+              "countryCode": "IN",
+              "countryName": "India",
+              "realName": "Naruto",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[530, 196, 45, 3, 8, 14, 250, 26, 10, 3, 96, 1, 3, 4, 3, 3, 66, 11, 6, 100, 6, 4, 58, 2]",
+          "currentRating": "3365.111",
+          "currentGlobalRanking": 21,
+          "dataRegion": "US",
+          "user": {
+            "username": "wwwwodddd",
+            "nameColor": null,
+            "activeBadge": {
+              "displayName": "100 Days Badge 2022",
+              "icon": "https://leetcode.com/static/images/badges/2022/lg/2022-annual-100.png",
+              "__typename": "UserBadgeNode"
+            },
+            "profile": {
+              "userSlug": "wwwwodddd",
+              "userAvatar": "https://assets.leetcode.com/users/avatars/avatar_1655637961.png",
+              "countryCode": "HK",
+              "countryName": "Hong Kong",
+              "realName": "wwwwodddd",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[652, 2090, 948, 1116, 280, 385, 232, 2159, 587, 371, 201, 128, 638, 24, 43, 108, 1, 41, 212, 66, 3, 2, 126, 1992, 1219, 20, 1637, 1, 38, 48, 41, 5, 9, 192, 95, 109, 47, 136, 14, 21, 59, 663, 27, 9, 58, 78, 1, 139, 15, 25, 8, 47, 162, 24, 1, 72, 48, 16, 67, 7, 28, 154, 52, 12, 35, 81, 1, 32, 6, 419, 46, 30, 94, 1, 19, 134, 17, 9, 19, 13, 21, 14, 60, 1, 1, 18, 9, 48, 7, 118, 5, 77, 7, 9, 7, 1, 50, 57, 20, 12, 1, 2, 45, 2, 10, 52, 5, 89, 3, 21, 24, 15, 1, 83, 67, 52, 5, 44, 2, 5, 21]",
+          "currentRating": "3357.485",
+          "currentGlobalRanking": 22,
+          "dataRegion": "CN",
+          "user": {
+            "username": "TheWander",
+            "nameColor": null,
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "wifiii",
+              "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+              "countryCode": "",
+              "countryName": "",
+              "realName": "wifiii",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[76, 68, 773, 286, 1275, 112, 2369, 154, 22, 5, 110, 63, 138, 142, 923, 31, 23, 205, 68, 32, 136, 18, 165, 81, 10, 355, 44, 73, 88, 163, 276, 224, 111, 78, 225, 109, 2, 21, 7, 6, 11, 110, 27, 9, 64, 8, 5, 17, 62, 117, 59, 10, 17, 12, 42, 2, 61, 16, 4, 56]",
+          "currentRating": "3353.933",
+          "currentGlobalRanking": 23,
+          "dataRegion": "US",
+          "user": {
+            "username": "_kevinyang",
+            "nameColor": null,
+            "activeBadge": {
+              "displayName": "50 Days Badge 2023",
+              "icon": "https://assets.leetcode.com/static_assets/marketing/lg50.png",
+              "__typename": "UserBadgeNode"
+            },
+            "profile": {
+              "userSlug": "_kevinyang",
+              "userAvatar": "https://assets.leetcode.com/users/_kevinyang/avatar_1721046496.png",
+              "countryCode": "CA",
+              "countryName": "Canada",
+              "realName": "Kai Wen Yang",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[53, 23, 19, 39, 30, 39, 30, 13, 133, 19, 28, 95, 17, 12, 69, 19, 235, 27, 150, 316, 109, 51, 42, 10, 39, 11, 45, 13, 48, 136, 32, 64, 15, 57, 7, 7, 374, 55, 36, 217, 155, 82, 10, 489, 35, 1, 55, 38, 88, 374, 6, 241, 74, 77, 196, 8, 11, 30, 2, 288, 12, 34, 46, 15, 63, 14, 47, 21, 453, 94, 35, 6, 65, 34, 7, 46, 37, 13, 27, 52, 5, 127, 73, 6, 61, 23, 9, 126, 56, 2, 34, 62, 14, 31, 28, 83, 3, 100, 42, 7, 50, 51, 9, 18, 86, 210, 15, 33, 6, 50, 21, 5, 24, 67, 3, 158, 7, 9, 32, 259, 40, 47, 65, 44, 5, 9, 218, 118, 288, 26, 47, 71, 325, 17, 119, 324, 299, 74, 51, 137, 22, 28, 9, 60, 16, 13, 50, 25, 6, 6, 281, 7, 325, 97, 218, 10, 12, 13, 4, 13, 10, 64, 251, 11, 38, 48, 23, 28, 67, 7, 29, 14, 283, 19, 190, 81, 23, 3, 57, 17, 7, 13, 2]",
+          "currentRating": "3344.044",
+          "currentGlobalRanking": 24,
+          "dataRegion": "US",
+          "user": {
+            "username": "emthrm",
+            "nameColor": null,
+            "activeBadge": {
+              "displayName": "50 Days Badge 2022",
+              "icon": "https://leetcode.com/static/images/badges/2022/lg/2022-annual-50.png",
+              "__typename": "UserBadgeNode"
+            },
+            "profile": {
+              "userSlug": "emthrm",
+              "userAvatar": "https://assets.leetcode.com/users/user4169qw/avatar_1586634158.png",
+              "countryCode": "JP",
+              "countryName": "Japan",
+              "realName": "emthrm",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        },
+        {
+          "ranking": "[48, 534, 128, 54, 289, 30, 33, 168, 137, 162, 81, 63, 9, 21, 125, 206, 870, 108, 177, 233, 11039, 102, 574, 92, 104, 16, 204, 40, 113, 429, 11, 54, 242, 128, 205, 72, 142, 22, 167, 37, 142, 88, 10, 200, 121, 41, 539, 143, 25, 66, 25, 539, 45, 62, 332, 25, 154, 12, 85, 147, 7, 409, 251, 46, 21, 101, 189, 39, 1797, 129, 33, 40, 82, 778, 29, 26, 176, 14, 63, 61, 32, 437, 2295, 64, 56, 17, 1, 40, 2, 8, 8, 2, 53, 24, 10, 27, 85, 8, 1, 40, 4, 41, 36, 22, 7, 15, 12, 45, 7, 59, 3, 3, 3, 42, 5, 14, 1365, 84, 29, 3, 5, 2, 1, 5, 409, 8, 24, 13, 58, 2, 24, 18, 19, 4, 16, 4, 20, 3, 4, 13, 7, 20, 4, 4, 12, 22, 21, 12, 8, 7, 13, 15, 5, 18, 2, 18, 7, 7, 13, 2, 1, 24, 17, 7, 4, 4, 14, 5, 22, 23, 36, 34, 35, 34, 35, 12, 158, 3, 2, 23, 2, 9, 10, 59, 6, 34, 3, 25, 13, 10, 16, 11, 10, 6, 12, 4, 13, 21, 27, 3, 21, 16, 295, 5, 3, 10, 7, 20, 15, 4, 2, 3, 3, 12, 1, 384, 9, 23, 7, 17, 10, 20, 18, 34, 5, 20, 8, 5, 14, 11, 5, 4, 17, 3, 12, 14, 12, 2, 1, 9, 3, 817, 12, 22, 10, 3216, 10, 31, 9, 21]",
+          "currentRating": "3343.379",
+          "currentGlobalRanking": 25,
+          "dataRegion": "CN",
+          "user": {
+            "username": "MisterSoandSo",
+            "nameColor": null,
+            "activeBadge": null,
+            "profile": {
+              "userSlug": "arignote",
+              "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+              "countryCode": "",
+              "countryName": "",
+              "realName": "arignote",
+              "__typename": "UserProfileNode"
+            },
+            "__typename": "UserNode"
+          },
+          "__typename": "RankingNode"
+        }
+      ],
+      "__typename": "GlobalRankingNode"
+    }
+  }
+}
