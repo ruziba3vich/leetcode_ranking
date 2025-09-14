@@ -62,3 +62,7 @@ RETURNING *;
 -- name: DeleteUserByUsername :exec
 DELETE FROM user_data
 WHERE username = $1;
+
+-- name: GetAllUsersCountByCountry :one
+SELECT COUNT(*) FROM user_data
+WHERE country_code = $1;

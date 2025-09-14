@@ -6,11 +6,13 @@ package users_storage
 
 import (
 	"context"
+	"database/sql"
 )
 
 type Querier interface {
 	CreateUser(ctx context.Context, arg CreateUserParams) (UserDatum, error)
 	DeleteUserByUsername(ctx context.Context, username string) error
+	GetAllUsersCountByCountry(ctx context.Context, countryCode sql.NullString) (int64, error)
 	GetUserByUsername(ctx context.Context, username string) (UserDatum, error)
 	GetUsersByCountry(ctx context.Context, arg GetUsersByCountryParams) ([]UserDatum, error)
 	ListUsers(ctx context.Context, arg ListUsersParams) ([]UserDatum, error)
