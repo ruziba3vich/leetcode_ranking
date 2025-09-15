@@ -1,0 +1,46 @@
+services:
+  leetcode-ranking:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: leetcode-ranking-app
+    ports:
+      - "8888:8888"
+    # environment:
+      # - PORT=8888
+      # - DEBUG=false
+      # - DELAY=500ms
+      # - LEETCODE_TIMEOUT=30s
+      # - SYNC_WORKERS=4
+      # - USER_WORKERS=2
+    restart: unless-stopped
+
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    # healthcheck:
+    #   test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888/health"]
+    #   interval: 30s
+    #   timeout: 3s
+    #   retries: 3
+    #   start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+    volumes:
+      - ./logs:/app/logs
+
+    networks:
+      - leetcode-network
+
+networks:
+  leetcode-network:
+    driver: bridge
