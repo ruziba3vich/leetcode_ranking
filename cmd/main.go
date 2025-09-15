@@ -48,7 +48,7 @@ func main() {
 			newEngine,
 		),
 		fx.Invoke(
-			startCron,
+			// startCron,
 			registerHandlerRoutes,
 			runHTTPServer,
 		),
