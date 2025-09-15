@@ -22,6 +22,7 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/lib/pq"
+	"github.com/robfig/cron"
 	"github.com/ruziba3vich/leetcode_ranking/db/users_storage"
 	_ "github.com/ruziba3vich/leetcode_ranking/docs"
 	custom_http "github.com/ruziba3vich/leetcode_ranking/internal/http"
@@ -47,6 +48,7 @@ func main() {
 			newEngine,
 		),
 		fx.Invoke(
+			startCron,
 			registerHandlerRoutes,
 			runHTTPServer,
 		),
@@ -109,4 +111,23 @@ func runHTTPServer(
 			return srv.Shutdown(shutdownCtx)
 		},
 	})
+}
+
+func startCron(srv service.UserService) {
+	log.Println("cron started")
+	c := cron.New()
+
+	c.AddFunc("0 0 * * *", func() {
+		createCron(srv)
+	})
+}
+
+func createCron(srv service.UserService) error {
+	ctx, cancel := context.WithTimeout(context.TODO(), time.Minute*10)
+	defer cancel()
+	opts := service.SyncOptions{
+		StartPage: 1,
+		Pages:     30164,
+	}
+	return srv.SyncLeaderboard(ctx, opts)
 }

@@ -216,7 +216,7 @@ const docTemplate = `{
                     "type": "integer",
                     "minimum": 1
                 },
-                "titalCount": {
+                "total_count": {
                     "type": "integer"
                 },
                 "users": {

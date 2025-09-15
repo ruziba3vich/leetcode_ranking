@@ -40,7 +40,7 @@ definitions:
       page:
         minimum: 1
         type: integer
-      titalCount:
+      total_count:
         type: integer
       users:
         items:

@@ -18,8 +18,8 @@ type (
 	}
 
 	GetUsersByCountryResponse struct {
-		Users      []users_storage.UserDatum
-		TitalCount int64
+		Users      []users_storage.UserDatum `json:"users"`
+		TitalCount int64                     `json:"total_count"`
 		PageLimit
 	}
 )

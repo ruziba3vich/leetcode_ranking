@@ -12,3 +12,30 @@
 {"level":"info","msg":"Fetched user=neal_wu solved=253 submissions=440 country=US","time":"2025-09-14T22:17:49+05:00"}
 {"level":"info","msg":"Fetched user=neal_wu solved=253 submissions=440 country=US","time":"2025-09-14T22:43:36+05:00"}
 {"level":"info","msg":"Fetched user=neal_wu solved=253 submissions=440 country=US","time":"2025-09-15T01:05:12+05:00"}
+{"level":"info","msg":"sync: collecting usernames start=1 pages=30164 workers=4 delay=800ms","time":"2025-09-15T02:44:25+05:00"}
+{"level":"info","msg":"sync: successfully processed user=Carefreejs solved=59 submissions=87 country=US","time":"2025-09-15T15:35:04+05:00"}
+{"level":"info","msg":"sync: successfully processed user=HazemAllaham solved=5 submissions=10 country=PS","time":"2025-09-15T15:35:06+05:00"}
+{"level":"info","msg":"sync: successfully processed user=MisterSoandSo solved=33 submissions=42 country=","time":"2025-09-15T15:35:08+05:00"}
+{"level":"info","msg":"sync: successfully processed user=Nahin_Imtiaz solved=16 submissions=25 country=","time":"2025-09-15T15:35:10+05:00"}
+{"level":"info","msg":"sync: successfully processed user=Naruto_x solved=3672 submissions=5434 country=IN","time":"2025-09-15T15:35:12+05:00"}
+{"level":"info","msg":"sync: successfully processed user=PurpleCrayon solved=785 submissions=881 country=","time":"2025-09-15T15:35:14+05:00"}
+{"level":"info","msg":"sync: successfully processed user=Shandse40 solved=0 submissions=0 country=","time":"2025-09-15T15:35:16+05:00"}
+{"level":"info","msg":"sync: successfully processed user=TheWander solved=3 submissions=3 country=TW","time":"2025-09-15T15:35:18+05:00"}
+{"level":"info","msg":"sync: successfully processed user=Yawn_Sean solved=1082 submissions=1615 country=","time":"2025-09-15T15:35:20+05:00"}
+{"level":"info","msg":"sync: successfully processed user=_kevinyang solved=731 submissions=879 country=CA","time":"2025-09-15T15:35:23+05:00"}
+{"level":"info","msg":"sync: successfully processed user=ahmed007boss solved=0 submissions=0 country=","time":"2025-09-15T15:35:25+05:00"}
+{"level":"info","msg":"sync: successfully processed user=dnialh solved=235 submissions=237 country=","time":"2025-09-15T15:35:27+05:00"}
+{"level":"info","msg":"sync: successfully processed user=emthrm solved=771 submissions=775 country=JP","time":"2025-09-15T15:35:29+05:00"}
+{"level":"info","msg":"sync: successfully processed user=A_Le_K solved=2797 submissions=5572 country=LV","time":"2025-09-15T16:05:34+05:00"}
+{"level":"info","msg":"sync: successfully processed user=Esteven solved=22 submissions=31 country=","time":"2025-09-15T16:05:36+05:00"}
+{"level":"info","msg":"sync: successfully processed user=HaiguangGe solved=0 submissions=0 country=","time":"2025-09-15T16:05:38+05:00"}
+{"level":"info","msg":"sync: successfully processed user=Harasis_singh solved=18 submissions=45 country=","time":"2025-09-15T16:05:40+05:00"}
+{"level":"info","msg":"sync: successfully processed user=Lilyflyinwind solved=181 submissions=307 country=","time":"2025-09-15T16:05:43+05:00"}
+{"level":"info","msg":"sync: successfully processed user=ParthIsLit solved=500 submissions=537 country=IN","time":"2025-09-15T16:05:45+05:00"}
+{"level":"info","msg":"sync: successfully processed user=Pranithaaa solved=29 submissions=39 country=","time":"2025-09-15T16:05:47+05:00"}
+{"level":"info","msg":"sync: successfully processed user=abhishek612 solved=0 submissions=0 country=","time":"2025-09-15T16:05:49+05:00"}
+{"level":"info","msg":"sync: successfully processed user=altcha solved=1 submissions=2 country=","time":"2025-09-15T16:05:51+05:00"}
+{"level":"info","msg":"sync: successfully processed user=cmagnemi solved=0 submissions=0 country=","time":"2025-09-15T16:05:53+05:00"}
+{"level":"info","msg":"sync: successfully processed user=egyptianprince2003 solved=0 submissions=0 country=","time":"2025-09-15T16:05:55+05:00"}
+{"level":"info","msg":"sync: successfully processed user=juliany2 solved=146 submissions=153 country=","time":"2025-09-15T16:05:57+05:00"}
+{"level":"info","msg":"sync: successfully processed user=liuyinan solved=3 submissions=4 country=","time":"2025-09-15T16:06:00+05:00"}

@@ -12,10 +12,10 @@ import (
 	"net/http"
 	"sort"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/andybalholm/brotli"
+	"github.com/k0kubun/pp"
 	"github.com/ruziba3vich/leetcode_ranking/db/users_storage"
 	"github.com/ruziba3vich/leetcode_ranking/internal/errors_"
 	"github.com/ruziba3vich/leetcode_ranking/internal/pkg/config"
@@ -121,125 +121,203 @@ type SyncOptions struct {
 
 // SyncLeaderboard pulls from LeetCode and upserts into DB.
 // This is your single entrypoint for the daily cron.
+// SyncLeaderboard pulls from LeetCode and upserts into DB page by page.
+// This is your single entrypoint for the daily cron.
 func (s *userService) SyncLeaderboard(ctx context.Context, opts SyncOptions) error {
+	pp.Println("------------------ starting synchronization -----------------")
+
 	// defaults
 	if opts.StartPage < 1 {
 		opts.StartPage = 1
 	}
-	if opts.Workers < 1 {
-		opts.Workers = 4
-	}
 	if opts.Delay <= 0 {
 		opts.Delay = 800 * time.Millisecond
 	}
-	s.logger.Infof("sync: collecting usernames start=%d pages=%d workers=%d delay=%s",
-		opts.StartPage, opts.Pages, opts.Workers, opts.Delay)
-
-	// 1) Gather usernames from the leaderboard
-	usernames, endPage, err := s.CollectUsernames(opts.StartPage, opts.Pages)
-	if err != nil {
-		s.logger.Errorf("sync: collect usernames failed: %v", err)
-		return fmt.Errorf("collect usernames: %w", err)
+	if opts.Workers <= 0 {
+		opts.Workers = 1 // Sequential processing by default
 	}
-	s.logger.Infof("sync: collected %d usernames (through page %d)", len(usernames), endPage)
 
-	// 2) Fan out: fetch per-user details and upsert
-	type job struct{ Username string }
-	jobs := make(chan job)
-	var wg sync.WaitGroup
+	pp.Printf("sync: starting page-by-page sync from page %d, delay=%s, workers=%d\n",
+		opts.StartPage, opts.Delay, opts.Workers)
 
-	worker := func() {
-		defer wg.Done()
-		for j := range jobs {
-			// fetch profile+stats
-			resp, err := s.FetchUser(j.Username)
-			if err != nil || resp.Data.MatchedUser == nil {
-				if err != nil {
-					s.logger.Errorf("sync: fetch user=%s error=%v", j.Username, err)
-				} else {
-					s.logger.Errorf("sync: fetch user=%s matchedUser=nil", j.Username)
-				}
-				continue
-			}
+	// Get first page to determine total pages
+	firstPage, err := s.FetchRankingPage(opts.StartPage)
+	if err != nil {
+		s.logger.Errorf("sync: failed to fetch first page %d: %v", opts.StartPage, err)
+		return fmt.Errorf("fetch first page: %w", err)
+	}
 
-			// find AC stats for "All"
-			var acAll *ACStat
-			for i := range resp.Data.MatchedUser.SubmitStats.ACSubmissionNum {
-				if resp.Data.MatchedUser.SubmitStats.ACSubmissionNum[i].Difficulty == "All" {
-					acAll = &resp.Data.MatchedUser.SubmitStats.ACSubmissionNum[i]
-					break
-				}
-			}
-			if acAll == nil {
-				s.logger.Errorf("sync: user=%s no AC 'All' stat", j.Username)
-				continue
-			}
+	totalPages := firstPage.Data.GlobalRanking.TotalPages
+	pp.Printf("sync: total pages available: %d\n", totalPages)
 
-			p := resp.Data.MatchedUser.Profile
-
-			// 3) Upsert into DB (uses your sqlc UpsertUser query)
-			_, err = s.storage.UpsertUser(ctx, users_storage.UpsertUserParams{
-				Username: j.Username,
-				UserSlug: p.UserSlug,
-				UserAvatar: sql.NullString{
-					String: p.UserAvatar,
-					Valid:  true,
-				},
-				CountryCode: sql.NullString{
-					String: p.CountryCode,
-					Valid:  true,
-				},
-				CountryName: sql.NullString{
-					String: p.CountryName,
-					Valid:  true,
-				},
-				RealName: sql.NullString{
-					String: p.RealName,
-					Valid:  true,
-				},
-				Typename: sql.NullString{
-					String: p.Typename,
-					Valid:  true,
-				},
-				TotalProblemsSolved: int32(acAll.Count),
-				TotalSubmissions:    int32(acAll.Submissions), // accepted submissions
-			})
-			if err != nil {
-				s.logger.Errorf("sync: upsert user=%s error=%v", j.Username, err)
-				continue
-			}
-
-			s.logger.Infof("sync: upserted user=%s solved=%d submissions=%d country=%s",
-				j.Username, acAll.Count, acAll.Submissions, p.CountryCode)
-
-			// be polite between user calls (small jitter is fine too)
-			time.Sleep(120 * time.Millisecond)
+	// Determine end page
+	endPage := totalPages
+	if opts.Pages > 0 {
+		if calculatedEnd := opts.StartPage + opts.Pages - 1; calculatedEnd < endPage {
+			endPage = calculatedEnd
 		}
 	}
 
-	// spin workers
-	wg.Add(opts.Workers)
-	for i := 0; i < opts.Workers; i++ {
-		go worker()
-	}
+	pp.Printf("sync: will process pages %d to %d\n", opts.StartPage, endPage)
 
-	// enqueue jobs
-	for _, u := range usernames {
+	totalProcessedUsers := 0
+
+	// Process each page completely before moving to the next
+	for currentPage := opts.StartPage; currentPage <= endPage; currentPage++ {
 		select {
 		case <-ctx.Done():
-			s.logger.Errorf("sync: context canceled")
-			close(jobs)
-			wg.Wait()
+			s.logger.Errorf("sync: context canceled at page %d", currentPage)
 			return ctx.Err()
-		case jobs <- job{Username: u}:
+		default:
+		}
+
+		pp.Printf("sync: processing page %d/%d\n", currentPage, endPage)
+
+		// Fetch current page (reuse first page data if it's the start page)
+		var pageResp *ResponseGlobal
+		if currentPage == opts.StartPage && firstPage != nil {
+			pageResp = firstPage
+		} else {
+			pageResp, err = s.FetchRankingPage(currentPage)
+			if err != nil {
+				s.logger.Errorf("sync: failed to fetch page %d: %v", currentPage, err)
+				continue // Skip this page and continue with next
+			}
+		}
+
+		// Extract usernames from current page
+		usernames := s.extractUsernamesFromPage(pageResp)
+		go pp.Printf("sync: page %d contains %d users\n", currentPage, len(usernames))
+
+		// Process all users from current page
+		pageProcessedUsers := 0
+		for _, username := range usernames {
+			select {
+			case <-ctx.Done():
+				s.logger.Errorf("sync: context canceled while processing user %s on page %d", username, currentPage)
+				return ctx.Err()
+			default:
+			}
+
+			if err := s.processUser(ctx, username); err != nil {
+				s.logger.Errorf("sync: failed to process user %s from page %d: %v", username, currentPage, err)
+				continue
+			}
+
+			pageProcessedUsers++
+			totalProcessedUsers++
+			go fmt.Println("--------------------------------", currentPage, "-------------------------- curr page")
+
+			// Polite delay between user requests
+			// time.Sleep(opts.Delay)
+		}
+
+		s.logger.Infof("sync: completed page %d/%d - processed %d users (total: %d)",
+			currentPage, endPage, pageProcessedUsers, totalProcessedUsers)
+
+		// Optional: delay between pages (could be different from user delay)
+		if currentPage < endPage {
+			time.Sleep(opts.Delay)
 		}
 	}
-	close(jobs)
-	wg.Wait()
 
-	s.logger.Infof("sync: done. processed=%d users", len(usernames))
+	s.logger.Infof("sync: completed all pages. Total processed users: %d", totalProcessedUsers)
+	pp.Println("------------------ synchronization completed -----------------")
 	return nil
 }
+
+// extractUsernamesFromPage extracts unique usernames from a page response
+func (s *userService) extractUsernamesFromPage(pageResp *ResponseGlobal) []string {
+	seen := make(map[string]struct{})
+	var usernames []string
+
+	for _, node := range pageResp.Data.GlobalRanking.RankingNodes {
+		username := strings.TrimSpace(node.User.Username)
+		if username == "" {
+			continue
+		}
+
+		if _, exists := seen[username]; !exists {
+			seen[username] = struct{}{}
+			usernames = append(usernames, username)
+		}
+	}
+
+	// Sort usernames for consistent processing order
+	sort.Strings(usernames)
+	return usernames
+}
+
+// processUser handles fetching and upserting a single user
+func (s *userService) processUser(ctx context.Context, username string) error {
+	// Fetch user profile and stats
+	resp, err := s.FetchUser(username)
+	if err != nil {
+		return fmt.Errorf("fetch user failed: %w", err)
+	}
+
+	if resp.Data.MatchedUser == nil {
+		return fmt.Errorf("user not found or unavailable")
+	}
+
+	// Find AC stats for "All" difficulty
+	var acAll *ACStat
+	for i := range resp.Data.MatchedUser.SubmitStats.ACSubmissionNum {
+		if resp.Data.MatchedUser.SubmitStats.ACSubmissionNum[i].Difficulty == "All" {
+			acAll = &resp.Data.MatchedUser.SubmitStats.ACSubmissionNum[i]
+			break
+		}
+	}
+
+	if acAll == nil {
+		return fmt.Errorf("missing AC 'All' statistics")
+	}
+
+	profile := resp.Data.MatchedUser.Profile
+
+	// Upsert user into database
+	user, err := s.storage.UpsertUser(ctx, users_storage.UpsertUserParams{
+		Username: username,
+		UserSlug: profile.UserSlug,
+		UserAvatar: sql.NullString{
+			String: profile.UserAvatar,
+			Valid:  true,
+		},
+		CountryCode: sql.NullString{
+			String: profile.CountryCode,
+			Valid:  true,
+		},
+		CountryName: sql.NullString{
+			String: profile.CountryName,
+			Valid:  true,
+		},
+		RealName: sql.NullString{
+			String: profile.RealName,
+			Valid:  true,
+		},
+		Typename: sql.NullString{
+			String: profile.Typename,
+			Valid:  true,
+		},
+		TotalProblemsSolved: int32(acAll.Count),
+		TotalSubmissions:    int32(acAll.Submissions),
+	})
+
+	pp.Println(user)
+
+	if err != nil {
+		return fmt.Errorf("database upsert failed: %w", err)
+	}
+
+	s.logger.Infof("sync: successfully processed user=%s solved=%d submissions=%d country=%s",
+		username, acAll.Count, acAll.Submissions, profile.CountryCode)
+
+	pp.Printf("✓ Processed user: %s\n", username)
+	return nil
+}
+
+// Remove the old CollectUsernames method as it's no longer needed
+// The page-by-page approach eliminates the need to collect all usernames upfront
 
 type ResponseUser struct {
 	Data   DataUser       `json:"data"`

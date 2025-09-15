@@ -8,7 +8,7 @@ INSERT INTO user_data (
 RETURNING *;
 
 -- name: UpsertUser :one
-INSERT INTO user_data AS u (
+INSERT INTO user_data (
   username, user_slug, user_avatar, country_code, country_name, real_name, typename,
   total_problems_solved, total_submissions
 ) VALUES (

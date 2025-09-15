@@ -5,7 +5,10 @@ import (
 	"log"
 	"testing"
 
+	_ "github.com/lib/pq"
+	"github.com/ruziba3vich/leetcode_ranking/db/users_storage"
 	"github.com/ruziba3vich/leetcode_ranking/internal/pkg/config"
+	"github.com/ruziba3vich/leetcode_ranking/internal/pkg/helper"
 	"github.com/ruziba3vich/leetcode_ranking/internal/service"
 	logger "github.com/ruziba3vich/prodonik_lgger"
 )
@@ -26,7 +29,9 @@ func GetUserService() service.UserService {
 		if err != nil {
 			log.Fatal(err)
 		}
-		factory.service = service.NewUserService(nil, leetcodeClient, lgg)
+		db := helper.NewDB(cfg)
+		storage := users_storage.New(db)
+		factory.service = service.NewUserService(storage, leetcodeClient, lgg)
 	}
 
 	return factory.service
