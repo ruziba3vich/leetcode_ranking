@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"compress/gzip"
 	"context"
-	"database/sql"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -16,8 +15,7 @@ import (
 
 	"github.com/andybalholm/brotli"
 	"github.com/k0kubun/pp"
-	"github.com/ruziba3vich/leetcode_ranking/db/users_storage"
-	"github.com/ruziba3vich/leetcode_ranking/internal/errors_"
+	"github.com/ruziba3vich/leetcode_ranking/internal/models"
 	"github.com/ruziba3vich/leetcode_ranking/internal/pkg/config"
 )
 
@@ -164,12 +162,12 @@ func (s *userService) SyncLeaderboard(ctx context.Context, opts SyncOptions) err
 
 	// Process each page completely before moving to the next
 	for currentPage := opts.StartPage; currentPage <= endPage; currentPage++ {
-		select {
-		case <-ctx.Done():
-			s.logger.Errorf("sync: context canceled at page %d", currentPage)
-			return ctx.Err()
-		default:
-		}
+		// select {
+		// case <-ctx.Done():
+		// 	s.logger.Errorf("sync: context canceled at page %d", currentPage)
+		// 	return ctx.Err()
+		// default:
+		// }
 
 		pp.Printf("sync: processing page %d/%d\n", currentPage, endPage)
 
@@ -191,17 +189,20 @@ func (s *userService) SyncLeaderboard(ctx context.Context, opts SyncOptions) err
 
 		// Process all users from current page
 		pageProcessedUsers := 0
+		var users []*models.StageUserDataParams
 		for _, username := range usernames {
-			select {
-			case <-ctx.Done():
-				s.logger.Errorf("sync: context canceled while processing user %s on page %d", username, currentPage)
-				return ctx.Err()
-			default:
-			}
+			// select {
+			// case <-ctx.Done():
+			// 	s.logger.Errorf("sync: context canceled while processing user %s on page %d", username, currentPage)
+			// 	return ctx.Err()
+			// default:
+			// }
 
-			if err := s.processUser(ctx, username); err != nil {
-				s.logger.Errorf("sync: failed to process user %s from page %d: %v", username, currentPage, err)
-				continue
+			user, err := s.FetchUser(username)
+			if err != nil {
+				s.logger.Error("failed to fetch user", map[string]any{"username": username})
+			} else {
+				users = append(users, user)
 			}
 
 			pageProcessedUsers++
@@ -210,6 +211,11 @@ func (s *userService) SyncLeaderboard(ctx context.Context, opts SyncOptions) err
 
 			// Polite delay between user requests
 			// time.Sleep(opts.Delay)
+		}
+
+		err := s.dbStorage.UpsertUserData(ctx, users)
+		if err != nil {
+			s.logger.Error("failed to sync users", map[string]any{"page": pageProcessedUsers})
 		}
 
 		s.logger.Infof("sync: completed page %d/%d - processed %d users (total: %d)",
@@ -248,73 +254,74 @@ func (s *userService) extractUsernamesFromPage(pageResp *ResponseGlobal) []strin
 	return usernames
 }
 
-// processUser handles fetching and upserting a single user
-func (s *userService) processUser(ctx context.Context, username string) error {
-	// Fetch user profile and stats
-	resp, err := s.FetchUser(username)
-	if err != nil {
-		return fmt.Errorf("fetch user failed: %w", err)
-	}
+// DEPRICATED: users are now going to be processed not by one
+// // processUser handles fetching and upserting a single user
+// func (s *userService) processUser(ctx context.Context, username string) error {
+// 	// Fetch user profile and stats
+// 	resp, err := s.FetchUser(username)
+// 	if err != nil {
+// 		return fmt.Errorf("fetch user failed: %w", err)
+// 	}
 
-	if resp.Data.MatchedUser == nil {
-		return fmt.Errorf("user not found or unavailable")
-	}
+// 	if resp.Data.MatchedUser == nil {
+// 		return fmt.Errorf("user not found or unavailable")
+// 	}
 
-	// Find AC stats for "All" difficulty
-	var acAll *ACStat
-	for i := range resp.Data.MatchedUser.SubmitStats.ACSubmissionNum {
-		if resp.Data.MatchedUser.SubmitStats.ACSubmissionNum[i].Difficulty == "All" {
-			acAll = &resp.Data.MatchedUser.SubmitStats.ACSubmissionNum[i]
-			break
-		}
-	}
+// 	// Find AC stats for "All" difficulty
+// 	var acAll *ACStat
+// 	for i := range resp.Data.MatchedUser.SubmitStats.ACSubmissionNum {
+// 		if resp.Data.MatchedUser.SubmitStats.ACSubmissionNum[i].Difficulty == "All" {
+// 			acAll = &resp.Data.MatchedUser.SubmitStats.ACSubmissionNum[i]
+// 			break
+// 		}
+// 	}
 
-	if acAll == nil {
-		return fmt.Errorf("missing AC 'All' statistics")
-	}
+// 	if acAll == nil {
+// 		return fmt.Errorf("missing AC 'All' statistics")
+// 	}
 
-	profile := resp.Data.MatchedUser.Profile
+// 	profile := resp.Data.MatchedUser.Profile
 
-	// Upsert user into database
-	user, err := s.storage.UpsertUser(ctx, users_storage.UpsertUserParams{
-		Username: username,
-		UserSlug: profile.UserSlug,
-		UserAvatar: sql.NullString{
-			String: profile.UserAvatar,
-			Valid:  true,
-		},
-		CountryCode: sql.NullString{
-			String: profile.CountryCode,
-			Valid:  true,
-		},
-		CountryName: sql.NullString{
-			String: profile.CountryName,
-			Valid:  true,
-		},
-		RealName: sql.NullString{
-			String: profile.RealName,
-			Valid:  true,
-		},
-		Typename: sql.NullString{
-			String: profile.Typename,
-			Valid:  true,
-		},
-		TotalProblemsSolved: int32(acAll.Count),
-		TotalSubmissions:    int32(acAll.Submissions),
-	})
+// 	// Upsert user into database
+// 	user, err := s.storage.UpsertUser(ctx, users_storage.UpsertUserParams{
+// 		Username: username,
+// 		UserSlug: profile.UserSlug,
+// 		UserAvatar: sql.NullString{
+// 			String: profile.UserAvatar,
+// 			Valid:  true,
+// 		},
+// 		CountryCode: sql.NullString{
+// 			String: profile.CountryCode,
+// 			Valid:  true,
+// 		},
+// 		CountryName: sql.NullString{
+// 			String: profile.CountryName,
+// 			Valid:  true,
+// 		},
+// 		RealName: sql.NullString{
+// 			String: profile.RealName,
+// 			Valid:  true,
+// 		},
+// 		Typename: sql.NullString{
+// 			String: profile.Typename,
+// 			Valid:  true,
+// 		},
+// 		TotalProblemsSolved: int32(acAll.Count),
+// 		TotalSubmissions:    int32(acAll.Submissions),
+// 	})
 
-	pp.Println(user)
+// 	pp.Println(user)
 
-	if err != nil {
-		return fmt.Errorf("database upsert failed: %w", err)
-	}
+// 	if err != nil {
+// 		return fmt.Errorf("database upsert failed: %w", err)
+// 	}
 
-	s.logger.Infof("sync: successfully processed user=%s solved=%d submissions=%d country=%s",
-		username, acAll.Count, acAll.Submissions, profile.CountryCode)
+// 	s.logger.Infof("sync: successfully processed user=%s solved=%d submissions=%d country=%s",
+// 		username, acAll.Count, acAll.Submissions, profile.CountryCode)
 
-	pp.Printf("✓ Processed user: %s\n", username)
-	return nil
-}
+// 	pp.Printf("✓ Processed user: %s\n", username)
+// 	return nil
+// }
 
 // Remove the old CollectUsernames method as it's no longer needed
 // The page-by-page approach eliminates the need to collect all usernames upfront
@@ -439,7 +446,7 @@ type ACStat struct {
 	Submissions int    `json:"submissions"`
 }
 
-func (s *userService) FetchUser(username string) (*ResponseUser, error) {
+func (s *userService) FetchUser(username string) (*models.StageUserDataParams, error) {
 	var out ResponseUser
 	if err := s.leetCodeClient.doGraphQL(queryMatchedUser, map[string]interface{}{"username": username}, &out); err != nil {
 		return nil, err
@@ -447,7 +454,24 @@ func (s *userService) FetchUser(username string) (*ResponseUser, error) {
 	if len(out.Errors) > 0 {
 		return nil, fmt.Errorf("GraphQL errors: %+v", out.Errors)
 	}
-	return &out, nil
+	var acAll *ACStat
+	for i := range out.Data.MatchedUser.SubmitStats.ACSubmissionNum {
+		if out.Data.MatchedUser.SubmitStats.ACSubmissionNum[i].Difficulty == "All" {
+			acAll = &out.Data.MatchedUser.SubmitStats.ACSubmissionNum[i]
+			break
+		}
+	}
+	return &models.StageUserDataParams{
+		Username:            username,
+		UserSlug:            out.Data.MatchedUser.Profile.UserSlug,
+		UserAvatar:          out.Data.MatchedUser.Profile.UserAvatar,
+		CountryCode:         out.Data.MatchedUser.Profile.CountryCode,
+		CountryName:         out.Data.MatchedUser.Profile.CountryName,
+		RealName:            out.Data.MatchedUser.Profile.RealName,
+		Typename:            out.Data.MatchedUser.Profile.Typename,
+		TotalProblemsSolved: int32(acAll.Count),
+		TotalSubmissions:    int32(acAll.Submissions),
+	}, nil
 }
 
 // Fetch usernames from ranking pages: start..end inclusive
@@ -559,53 +583,54 @@ func (c *LeetCodeClient) doGraphQL(query string, variables map[string]interface{
 	return nil
 }
 
-func (s *userService) FetchLeetCodeUser(ctx context.Context, username string) (OutputUser, error) {
-	var out OutputUser
+// DEPRICATED
+// func (s *userService) FetchLeetCodeUser(ctx context.Context, username string) (OutputUser, error) {
+// 	var out OutputUser
 
-	username = strings.TrimSpace(username)
-	if username == "" {
-		return out, fmt.Errorf("username is required")
-	}
+// 	username = strings.TrimSpace(username)
+// 	if username == "" {
+// 		return out, fmt.Errorf("username is required")
+// 	}
 
-	resp, err := s.FetchUser(username)
-	if err != nil {
-		return out, fmt.Errorf("leetcode fetch failed for %q: %w", username, err)
-	}
-	if resp.Data.MatchedUser == nil {
-		return out, errors_.ErrUserNotAvailable
-	}
+// 	resp, err := s.FetchUser(username)
+// 	if err != nil {
+// 		return out, fmt.Errorf("leetcode fetch failed for %q: %w", username, err)
+// 	}
+// 	if resp.Data.MatchedUser == nil {
+// 		return out, errors_.ErrUserNotAvailable
+// 	}
 
-	// pick AC "All"
-	var acAll *ACStat
-	for i := range resp.Data.MatchedUser.SubmitStats.ACSubmissionNum {
-		if resp.Data.MatchedUser.SubmitStats.ACSubmissionNum[i].Difficulty == "All" {
-			acAll = &resp.Data.MatchedUser.SubmitStats.ACSubmissionNum[i]
-			break
-		}
-	}
-	if acAll == nil {
-		return out, fmt.Errorf("missing AC 'All' stat for %q", username)
-	}
+// 	// pick AC "All"
+// 	var acAll *ACStat
+// 	for i := range resp.Data.MatchedUser.SubmitStats.ACSubmissionNum {
+// 		if resp.Data.MatchedUser.SubmitStats.ACSubmissionNum[i].Difficulty == "All" {
+// 			acAll = &resp.Data.MatchedUser.SubmitStats.ACSubmissionNum[i]
+// 			break
+// 		}
+// 	}
+// 	if acAll == nil {
+// 		return out, fmt.Errorf("missing AC 'All' stat for %q", username)
+// 	}
 
-	p := resp.Data.MatchedUser.Profile
+// 	p := resp.Data.MatchedUser.Profile
 
-	// map to OutputUser (your requested shape)
-	out.User.Username = username
-	out.User.Profile.UserSlug = p.UserSlug
-	out.User.Profile.UserAvatar = p.UserAvatar
-	out.User.Profile.CountryCode = p.CountryCode
-	out.User.Profile.CountryName = p.CountryName
-	out.User.Profile.RealName = p.RealName
-	out.User.Profile.Typename = p.Typename
-	out.User.Profile.TotalProblemsSolved = acAll.Count
-	out.User.Profile.TotalSubmissions = acAll.Submissions // accepted submissions
+// 	// map to OutputUser (your requested shape)
+// 	out.User.Username = username
+// 	out.User.Profile.UserSlug = p.UserSlug
+// 	out.User.Profile.UserAvatar = p.UserAvatar
+// 	out.User.Profile.CountryCode = p.CountryCode
+// 	out.User.Profile.CountryName = p.CountryName
+// 	out.User.Profile.RealName = p.RealName
+// 	out.User.Profile.Typename = p.Typename
+// 	out.User.Profile.TotalProblemsSolved = acAll.Count
+// 	out.User.Profile.TotalSubmissions = acAll.Submissions // accepted submissions
 
-	// optional logging
-	s.logger.Infof("Fetched user=%s solved=%d submissions=%d country=%s",
-		username, acAll.Count, acAll.Submissions, p.CountryCode)
+// 	// optional logging
+// 	s.logger.Infof("Fetched user=%s solved=%d submissions=%d country=%s",
+// 		username, acAll.Count, acAll.Submissions, p.CountryCode)
 
-	return out, nil
-}
+// 	return out, nil
+// }
 
 func decompressResponse(resp *http.Response) ([]byte, error) {
 	var reader io.Reader = resp.Body
