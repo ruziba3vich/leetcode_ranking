@@ -10,8 +10,9 @@ import (
 
 type UserService interface {
 	CollectUsernames(startPage int, maxPages int) ([]string, int, error)
+	CreateUser(ctx context.Context, req *dto.CreateUserRequest) (*users_storage.UserDatum, error)
 	DeleteUserByUsername(ctx context.Context, username string) error
-	// FetchLeetCodeUser(ctx context.Context, username string) (OutputUser, error) // DEPRICATED
+	FetchLeetCodeUser(ctx context.Context, username string) (*models.StageUserDataParams, error)
 	FetchRankingPage(page int) (*ResponseGlobal, error)
 	FetchUser(username string) (*models.StageUserDataParams, error)
 	GetUserByUsername(ctx context.Context, username string) (*users_storage.UserDatum, error)

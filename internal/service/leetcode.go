@@ -15,6 +15,7 @@ import (
 
 	"github.com/andybalholm/brotli"
 	"github.com/k0kubun/pp"
+	"github.com/ruziba3vich/leetcode_ranking/internal/errors_"
 	"github.com/ruziba3vich/leetcode_ranking/internal/models"
 	"github.com/ruziba3vich/leetcode_ranking/internal/pkg/config"
 )
@@ -583,54 +584,26 @@ func (c *LeetCodeClient) doGraphQL(query string, variables map[string]interface{
 	return nil
 }
 
-// DEPRICATED
-// func (s *userService) FetchLeetCodeUser(ctx context.Context, username string) (OutputUser, error) {
-// 	var out OutputUser
+func (s *userService) FetchLeetCodeUser(ctx context.Context, username string) (*models.StageUserDataParams, error) {
+	username = strings.TrimSpace(username)
+	if username == "" {
+		return nil, fmt.Errorf("username is required")
+	}
 
-// 	username = strings.TrimSpace(username)
-// 	if username == "" {
-// 		return out, fmt.Errorf("username is required")
-// 	}
+	resp, err := s.FetchUser(username)
+	if err != nil {
+		return nil, fmt.Errorf("leetcode fetch failed for %q: %w", username, err)
+	}
+	if resp == nil {
+		return nil, errors_.ErrUserNotAvailable
+	}
 
-// 	resp, err := s.FetchUser(username)
-// 	if err != nil {
-// 		return out, fmt.Errorf("leetcode fetch failed for %q: %w", username, err)
-// 	}
-// 	if resp.Data.MatchedUser == nil {
-// 		return out, errors_.ErrUserNotAvailable
-// 	}
+	// optional logging
+	s.logger.Infof("Fetched user=%s solved=%d submissions=%d country=%s",
+		username, resp.TotalProblemsSolved, resp.TotalSubmissions, resp.CountryName)
 
-// 	// pick AC "All"
-// 	var acAll *ACStat
-// 	for i := range resp.Data.MatchedUser.SubmitStats.ACSubmissionNum {
-// 		if resp.Data.MatchedUser.SubmitStats.ACSubmissionNum[i].Difficulty == "All" {
-// 			acAll = &resp.Data.MatchedUser.SubmitStats.ACSubmissionNum[i]
-// 			break
-// 		}
-// 	}
-// 	if acAll == nil {
-// 		return out, fmt.Errorf("missing AC 'All' stat for %q", username)
-// 	}
-
-// 	p := resp.Data.MatchedUser.Profile
-
-// 	// map to OutputUser (your requested shape)
-// 	out.User.Username = username
-// 	out.User.Profile.UserSlug = p.UserSlug
-// 	out.User.Profile.UserAvatar = p.UserAvatar
-// 	out.User.Profile.CountryCode = p.CountryCode
-// 	out.User.Profile.CountryName = p.CountryName
-// 	out.User.Profile.RealName = p.RealName
-// 	out.User.Profile.Typename = p.Typename
-// 	out.User.Profile.TotalProblemsSolved = acAll.Count
-// 	out.User.Profile.TotalSubmissions = acAll.Submissions // accepted submissions
-
-// 	// optional logging
-// 	s.logger.Infof("Fetched user=%s solved=%d submissions=%d country=%s",
-// 		username, acAll.Count, acAll.Submissions, p.CountryCode)
-
-// 	return out, nil
-// }
+	return resp, nil
+}
 
 func decompressResponse(resp *http.Response) ([]byte, error) {
 	var reader io.Reader = resp.Body

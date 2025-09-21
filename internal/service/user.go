@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"database/sql"
 	"errors"
 	"fmt"
 	"strings"
@@ -28,50 +29,50 @@ func NewUserService(storage users_storage.Querier, dbStorage storage.Storage, le
 	}
 }
 
-// func (s *userService) CreateUser(ctx context.Context, req *dto.CreateUserRequest) (*users_storage.UserDatum, error) {
-// 	data, err := s.FetchLeetCodeUser(ctx, req.Username)
-// 	if err != nil {
-// 		s.logger.Error("could not fetch user", map[string]any{"error": err.Error(), "username": req.Username})
-// 		return nil, err
-// 	}
-// 	arg := &users_storage.CreateUserParams{
-// 		Username: data.User.Username,
-// 		UserSlug: data.User.Profile.UserSlug,
-// 		UserAvatar: sql.NullString{
-// 			String: data.User.Profile.UserAvatar,
-// 			Valid:  true,
-// 		},
-// 		CountryCode: sql.NullString{
-// 			String: data.User.Profile.CountryCode,
-// 			Valid:  true,
-// 		},
-// 		CountryName: sql.NullString{
-// 			String: data.User.Profile.CountryName,
-// 			Valid:  true,
-// 		},
-// 		RealName: sql.NullString{
-// 			String: data.User.Profile.RealName,
-// 			Valid:  true,
-// 		},
-// 		Typename: sql.NullString{
-// 			String: data.User.Profile.Typename,
-// 			Valid:  true,
-// 		},
-// 		TotalProblemsSolved: int32(data.User.Profile.TotalProblemsSolved),
-// 		TotalSubmissions:    int32(data.User.Profile.TotalSubmissions),
-// 	}
-// 	if strings.TrimSpace(arg.Username) == "" {
-// 		return nil, fmt.Errorf("username is required")
-// 	}
+func (s *userService) CreateUser(ctx context.Context, req *dto.CreateUserRequest) (*users_storage.UserDatum, error) {
+	data, err := s.FetchLeetCodeUser(ctx, req.Username)
+	if err != nil {
+		s.logger.Error("could not fetch user", map[string]any{"error": err.Error(), "username": req.Username})
+		return nil, err
+	}
+	arg := &users_storage.CreateUserParams{
+		Username: data.Username,
+		UserSlug: data.UserSlug,
+		UserAvatar: sql.NullString{
+			String: data.UserAvatar,
+			Valid:  true,
+		},
+		CountryCode: sql.NullString{
+			String: data.CountryCode,
+			Valid:  true,
+		},
+		CountryName: sql.NullString{
+			String: data.CountryName,
+			Valid:  true,
+		},
+		RealName: sql.NullString{
+			String: data.RealName,
+			Valid:  true,
+		},
+		Typename: sql.NullString{
+			String: data.Typename,
+			Valid:  true,
+		},
+		TotalProblemsSolved: int32(data.TotalProblemsSolved),
+		TotalSubmissions:    int32(data.TotalSubmissions),
+	}
+	if strings.TrimSpace(arg.Username) == "" {
+		return nil, fmt.Errorf("username is required")
+	}
 
-// 	u, err := s.storage.CreateUser(ctx, *arg)
-// 	if err != nil {
-// 		s.logger.Errorf("CreateUser: username=%s err=%v", arg.Username, err)
-// 		return nil, err
-// 	}
-// 	s.logger.Infof("CreateUser: username=%s id=%d", u.Username, u.ID)
-// 	return &u, nil
-// }
+	u, err := s.storage.CreateUser(ctx, *arg)
+	if err != nil {
+		s.logger.Errorf("CreateUser: username=%s err=%v", arg.Username, err)
+		return nil, err
+	}
+	s.logger.Infof("CreateUser: username=%s id=%d", u.Username, u.ID)
+	return &u, nil
+}
 
 func (s *userService) DeleteUserByUsername(ctx context.Context, username string) error {
 	username = strings.TrimSpace(username)
