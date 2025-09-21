@@ -1,15 +1,13 @@
 package models
 
-import "database/sql"
-
 type StageUserDataParams struct {
 	Username            string
 	UserSlug            string
-	UserAvatar          sql.NullString
-	CountryCode         sql.NullString
-	CountryName         sql.NullString
-	RealName            sql.NullString
-	Typename            sql.NullString
+	UserAvatar          string
+	CountryCode         string
+	CountryName         string
+	RealName            string
+	Typename            string
 	TotalProblemsSolved int32
 	TotalSubmissions    int32
 }
