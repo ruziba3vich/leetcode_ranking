@@ -138,17 +138,10 @@ func (h *Handler) SyncLeaderboard(c *gin.Context) {
 // @Tags        leaderboard
 // @Accept      json
 // @Produce     json
-// @Param       body  body     dto.StartSyncingReq  true  "Sync stop request (page is ignored)"
 // @Success     200   {object} map[string]string    "Syncing stopped"
 // @Failure     400   {object} map[string]string    "Invalid request"
 // @Router      /api/v1/stop-syncing [post]
 func (h *Handler) StopSyncing(c *gin.Context) {
-	var req dto.StartSyncingReq
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid request"})
-		return
-	}
-
 	h.srv.SyncOff()
 	c.JSON(http.StatusOK, gin.H{"response": "syncing stopped"})
 }

@@ -162,17 +162,6 @@ const docTemplate = `{
                     "leaderboard"
                 ],
                 "summary": "Stop leaderboard syncing",
-                "parameters": [
-                    {
-                        "description": "Sync stop request (page is ignored)",
-                        "name": "body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/github_com_ruziba3vich_leetcode_ranking_internal_dto.StartSyncingReq"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Syncing stopped",

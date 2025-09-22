@@ -173,13 +173,6 @@ paths:
       consumes:
       - application/json
       description: Stops the ongoing background leaderboard sync job.
-      parameters:
-      - description: Sync stop request (page is ignored)
-        in: body
-        name: body
-        required: true
-        schema:
-          $ref: '#/definitions/github_com_ruziba3vich_leetcode_ranking_internal_dto.StartSyncingReq'
       produces:
       - application/json
       responses:
