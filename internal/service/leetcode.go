@@ -440,14 +440,17 @@ func (s *userService) SyncLeaderboard(ctx context.Context, opts SyncOptions) err
 
 		// Batch insert users
 		if len(users) > 0 {
-			err := s.dbStorage.UpsertUserData(ctx, users)
+			c, cancel := context.WithTimeout(context.TODO(), time.Second*20)
+			err := s.dbStorage.UpsertUserData(c, users)
 			if err != nil {
 				s.logger.Error("failed to sync users", map[string]any{"page": currentPage, "count": len(users)})
+				pp.Println(err.Error())
 			} else {
 				totalProcessedUsers += len(users)
 				s.logger.Infof("sync: completed page %d/%d - processed %d users (total: %d)",
 					currentPage, endPage, len(users), totalProcessedUsers)
 			}
+			cancel()
 		}
 
 		// Optional: delay between pages
