@@ -30,6 +30,7 @@ import (
 	"github.com/ruziba3vich/leetcode_ranking/internal/pkg/config"
 	"github.com/ruziba3vich/leetcode_ranking/internal/pkg/helper"
 	"github.com/ruziba3vich/leetcode_ranking/internal/service"
+	"github.com/ruziba3vich/leetcode_ranking/internal/storage"
 	logger "github.com/ruziba3vich/prodonik_lgger"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -42,6 +43,7 @@ func main() {
 			config.Load,
 			newLogger,
 			helper.NewDB,
+			storage.NewStorage,
 			newUsersStorage,
 			service.NewLeetCodeClient,
 			service.NewUserService,
@@ -73,9 +75,9 @@ func registerHandlerRoutes(h *custom_http.Handler, router *gin.Engine) {
 	{
 		api.POST("/add-user", h.CreateUser)
 		api.GET("/get-users", h.GetUsersByCountry)
-		api.POST("/start-syncing", h.SyncLeaderboard)
+		api.POST("/sync-leaderboard", h.SyncLeaderboard)
 		api.POST("/stop-syncing", h.StopSyncing)
-		api.GET("/get-sync-status", h.GetSyncingStatus)
+		api.GET("/sync-status", h.GetSyncingStatus)
 	}
 }
 

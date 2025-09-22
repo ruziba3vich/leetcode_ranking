@@ -121,6 +121,12 @@ func (h *Handler) SyncLeaderboard(c *gin.Context) {
 		return
 	}
 
+	stat := h.srv.GetSyncStatus()
+	if stat.IsOn {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "syncing is already on"})
+		return
+	}
+
 	h.srv.SyncOn()
 	go h.srv.SyncLeaderboard(c.Request.Context(), service.SyncOptions{StartPage: req.Page, Workers: 4})
 	c.JSON(http.StatusOK, gin.H{"response": "syncing started"})
