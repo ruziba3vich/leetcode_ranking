@@ -10,6 +10,7 @@ import (
 	"github.com/ruziba3vich/leetcode_ranking/internal/pkg/config"
 	"github.com/ruziba3vich/leetcode_ranking/internal/pkg/helper"
 	"github.com/ruziba3vich/leetcode_ranking/internal/service"
+	dbStorage "github.com/ruziba3vich/leetcode_ranking/internal/storage"
 	logger "github.com/ruziba3vich/prodonik_lgger"
 )
 
@@ -30,8 +31,9 @@ func GetUserService() service.UserService {
 			log.Fatal(err)
 		}
 		db := helper.NewDB(cfg)
+		dbStorage := dbStorage.NewStorage(db)
 		storage := users_storage.New(db)
-		factory.service = service.NewUserService(storage, leetcodeClient, lgg)
+		factory.service = service.NewUserService(storage, dbStorage, leetcodeClient, lgg)
 	}
 
 	return factory.service
@@ -98,30 +100,29 @@ func TestFetchLeetCodeUser_Success(t *testing.T) {
 	// pp.Println(got)
 
 	// assert
-	if got.User.Username != "neal_wu" {
-		t.Errorf("username = %q, want %q", got.User.Username, "neal_wu")
+	if got.Username != "neal_wu" {
+		t.Errorf("username = %q, want %q", got.Username, "neal_wu")
 	}
-	p := got.User.Profile
-	if p.UserSlug != "neal_wu" {
-		t.Errorf("userSlug = %q, want %q", p.UserSlug, "neal_wu")
+	if got.UserSlug != "neal_wu" {
+		t.Errorf("userSlug = %q, want %q", got.UserSlug, "neal_wu")
 	}
-	if p.UserAvatar != "https://assets.leetcode.com/users/neal_wu/avatar_1737814509.png" {
+	if got.UserAvatar != "https://assets.leetcode.com/users/neal_wu/avatar_1737814509.png" {
 		t.Errorf("avatar mismatch")
 	}
-	if p.CountryCode != "US" || p.CountryName != "United States" {
-		t.Errorf("country = %s/%s, want US/United States", p.CountryCode, p.CountryName)
+	if got.CountryCode != "US" || got.CountryName != "United States" {
+		t.Errorf("country = %s/%s, want US/United States", got.CountryCode, got.CountryName)
 	}
-	if p.RealName != "Neal Wu" {
-		t.Errorf("realName = %q, want Neal Wu", p.RealName)
+	if got.RealName != "Neal Wu" {
+		t.Errorf("realName = %q, want Neal Wu", got.RealName)
 	}
-	if p.Typename != "UserProfileNode" {
-		t.Errorf("typename = %q, want UserProfileNode", p.Typename)
+	if got.Typename != "UserProfileNode" {
+		t.Errorf("typename = %q, want UserProfileNode", got.Typename)
 	}
-	if p.TotalProblemsSolved != 253 {
-		t.Errorf("solved = %d, want 253", p.TotalProblemsSolved)
+	if got.TotalProblemsSolved != 253 {
+		t.Errorf("solved = %d, want 253", got.TotalProblemsSolved)
 	}
-	if p.TotalSubmissions != 440 {
-		t.Errorf("accepted submissions = %d, want 440", p.TotalSubmissions)
+	if got.TotalSubmissions != 440 {
+		t.Errorf("accepted submissions = %d, want 440", got.TotalSubmissions)
 	}
 }
 

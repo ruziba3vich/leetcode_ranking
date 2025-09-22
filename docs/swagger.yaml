@@ -31,6 +31,13 @@ definitions:
       username:
         type: string
     type: object
+  github_com_ruziba3vich_leetcode_ranking_internal_dto.GetSyncStatusResponse:
+    properties:
+      is_on:
+        type: boolean
+      page:
+        type: integer
+    type: object
   github_com_ruziba3vich_leetcode_ranking_internal_dto.GetUsersByCountryResponse:
     properties:
       limit:
@@ -49,6 +56,11 @@ definitions:
     required:
     - limit
     - page
+    type: object
+  github_com_ruziba3vich_leetcode_ranking_internal_dto.StartSyncingReq:
+    properties:
+      page:
+        type: integer
     type: object
   sql.NullString:
     properties:
@@ -156,4 +168,73 @@ paths:
       summary: List users by country (paginated, ranked)
       tags:
       - users
+  /api/v1/stop-syncing:
+    post:
+      consumes:
+      - application/json
+      description: Stops the ongoing background leaderboard sync job.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Syncing stopped
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Stop leaderboard syncing
+      tags:
+      - leaderboard
+  /api/v1/sync-leaderboard:
+    post:
+      consumes:
+      - application/json
+      description: Starts the background process to sync the leaderboard from LeetCode.
+      parameters:
+      - description: Sync start request (page number to begin from)
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_ruziba3vich_leetcode_ranking_internal_dto.StartSyncingReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Syncing started
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Start leaderboard syncing
+      tags:
+      - leaderboard
+  /api/v1/sync-status:
+    get:
+      consumes:
+      - application/json
+      description: Returns whether the leaderboard syncing process is active and current
+        progress info.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Current sync status
+          schema:
+            $ref: '#/definitions/github_com_ruziba3vich_leetcode_ranking_internal_dto.GetSyncStatusResponse'
+      summary: Get syncing status
+      tags:
+      - leaderboard
 swagger: "2.0"

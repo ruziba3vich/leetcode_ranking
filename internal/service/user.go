@@ -9,6 +9,7 @@ import (
 
 	"github.com/ruziba3vich/leetcode_ranking/db/users_storage"
 	"github.com/ruziba3vich/leetcode_ranking/internal/dto"
+	"github.com/ruziba3vich/leetcode_ranking/internal/storage"
 	logger "github.com/ruziba3vich/prodonik_lgger"
 )
 
@@ -16,47 +17,59 @@ type userService struct {
 	leetCodeClient *LeetCodeClient
 	storage        users_storage.Querier
 	logger         *logger.Logger
+	dbStorage      *storage.Storage
+	sync           bool
+	syncingPage    int
 }
 
-func NewUserService(storage users_storage.Querier, leetCodeClient *LeetCodeClient, log *logger.Logger) UserService {
+func NewUserService(storage users_storage.Querier, dbStorage *storage.Storage, leetCodeClient *LeetCodeClient, log *logger.Logger) UserService {
 	return &userService{
 		storage:        storage,
+		dbStorage:      dbStorage,
 		leetCodeClient: leetCodeClient,
 		logger:         log,
 	}
 }
 
+func (s *userService) SyncOn() {
+	s.sync = true
+}
+
+func (s *userService) SyncOff() {
+	s.sync = false
+}
+
 func (s *userService) CreateUser(ctx context.Context, req *dto.CreateUserRequest) (*users_storage.UserDatum, error) {
-	data, err := s.FetchLeetCodeUser(ctx, req.Username)
+	data, err := s.fetchAndConvertUser(req.Username)
 	if err != nil {
 		s.logger.Error("could not fetch user", map[string]any{"error": err.Error(), "username": req.Username})
 		return nil, err
 	}
 	arg := &users_storage.CreateUserParams{
-		Username: data.User.Username,
-		UserSlug: data.User.Profile.UserSlug,
+		Username: data.Username,
+		UserSlug: data.UserSlug,
 		UserAvatar: sql.NullString{
-			String: data.User.Profile.UserAvatar,
+			String: data.UserAvatar,
 			Valid:  true,
 		},
 		CountryCode: sql.NullString{
-			String: data.User.Profile.CountryCode,
+			String: data.CountryCode,
 			Valid:  true,
 		},
 		CountryName: sql.NullString{
-			String: data.User.Profile.CountryName,
+			String: data.CountryName,
 			Valid:  true,
 		},
 		RealName: sql.NullString{
-			String: data.User.Profile.RealName,
+			String: data.RealName,
 			Valid:  true,
 		},
 		Typename: sql.NullString{
-			String: data.User.Profile.Typename,
+			String: data.Typename,
 			Valid:  true,
 		},
-		TotalProblemsSolved: int32(data.User.Profile.TotalProblemsSolved),
-		TotalSubmissions:    int32(data.User.Profile.TotalSubmissions),
+		TotalProblemsSolved: int32(data.TotalProblemsSolved),
+		TotalSubmissions:    int32(data.TotalSubmissions),
 	}
 	if strings.TrimSpace(arg.Username) == "" {
 		return nil, fmt.Errorf("username is required")

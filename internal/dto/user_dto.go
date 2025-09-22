@@ -22,4 +22,13 @@ type (
 		TitalCount int64                     `json:"total_count"`
 		PageLimit
 	}
+
+	StartSyncingReq struct {
+		Page int `json:"page"`
+	}
+
+	GetSyncStatusResponse struct {
+		IsOn bool `json:"is_on"`
+		Page int  `json:"page"`
+	}
 )
