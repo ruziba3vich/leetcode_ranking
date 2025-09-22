@@ -26,4 +26,9 @@ type (
 	StartSyncingReq struct {
 		Page int `json:"page"`
 	}
+
+	GetSyncStatusResponse struct {
+		IsOn bool `json:"is_on"`
+		Page int  `json:"page"`
+	}
 )

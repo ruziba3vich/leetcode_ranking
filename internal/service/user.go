@@ -18,6 +18,8 @@ type userService struct {
 	storage        users_storage.Querier
 	logger         *logger.Logger
 	dbStorage      *storage.Storage
+	sync           bool
+	syncingPage    int
 }
 
 func NewUserService(storage users_storage.Querier, dbStorage *storage.Storage, leetCodeClient *LeetCodeClient, log *logger.Logger) UserService {
@@ -27,6 +29,14 @@ func NewUserService(storage users_storage.Querier, dbStorage *storage.Storage, l
 		leetCodeClient: leetCodeClient,
 		logger:         log,
 	}
+}
+
+func (s *userService) SyncOn() {
+	s.sync = true
+}
+
+func (s *userService) SyncOff() {
+	s.sync = false
 }
 
 func (s *userService) CreateUser(ctx context.Context, req *dto.CreateUserRequest) (*users_storage.UserDatum, error) {

@@ -16,6 +16,7 @@ import (
 
 	"github.com/andybalholm/brotli"
 	"github.com/k0kubun/pp"
+	"github.com/ruziba3vich/leetcode_ranking/internal/dto"
 	"github.com/ruziba3vich/leetcode_ranking/internal/errors_"
 	"github.com/ruziba3vich/leetcode_ranking/internal/models"
 	"github.com/ruziba3vich/leetcode_ranking/internal/pkg/config"
@@ -403,7 +404,8 @@ func (s *userService) SyncLeaderboard(ctx context.Context, opts SyncOptions) err
 	totalProcessedUsers := 0
 
 	// Process pages in batches
-	for currentPage := opts.StartPage; currentPage <= endPage; currentPage++ {
+	for currentPage := opts.StartPage; s.sync && currentPage <= endPage; currentPage++ {
+		s.syncingPage = currentPage
 		// select {
 		// case <-ctx.Done():
 		// 	s.logger.Errorf("sync: context canceled at page %d", currentPage)
@@ -457,6 +459,13 @@ func (s *userService) SyncLeaderboard(ctx context.Context, opts SyncOptions) err
 	s.logger.Infof("sync: completed all pages. Total processed users: %d", totalProcessedUsers)
 	pp.Println("------------------ synchronization completed -----------------")
 	return nil
+}
+
+func (s *userService) GetSyncStatus() *dto.GetSyncStatusResponse {
+	return &dto.GetSyncStatusResponse{
+		IsOn: s.sync,
+		Page: s.syncingPage,
+	}
 }
 
 // OPTIMIZED: Simplified page fetching

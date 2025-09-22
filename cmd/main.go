@@ -73,6 +73,9 @@ func registerHandlerRoutes(h *custom_http.Handler, router *gin.Engine) {
 	{
 		api.POST("/add-user", h.CreateUser)
 		api.GET("/get-users", h.GetUsersByCountry)
+		api.POST("/start-syncing", h.SyncLeaderboard)
+		api.POST("/stop-syncing", h.StopSyncing)
+		api.GET("/get-sync-status", h.GetSyncingStatus)
 	}
 }
 

@@ -103,3 +103,58 @@ func (h *Handler) GetUsersByCountry(c *gin.Context) {
 	response.PageLimit = req.PageLimit
 	c.JSON(http.StatusOK, response)
 }
+
+// SyncLeaderboard godoc
+// @Summary     Start leaderboard syncing
+// @Description Starts the background process to sync the leaderboard from LeetCode.
+// @Tags        leaderboard
+// @Accept      json
+// @Produce     json
+// @Param       body  body     dto.StartSyncingReq  true  "Sync start request (page number to begin from)"
+// @Success     200   {object} map[string]string    "Syncing started"
+// @Failure     400   {object} map[string]string    "Invalid request"
+// @Router      /api/v1/sync-leaderboard [post]
+func (h *Handler) SyncLeaderboard(c *gin.Context) {
+	var req dto.StartSyncingReq
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid request"})
+		return
+	}
+
+	h.srv.SyncOn()
+	go h.srv.SyncLeaderboard(c.Request.Context(), service.SyncOptions{StartPage: req.Page, Workers: 4})
+	c.JSON(http.StatusOK, gin.H{"response": "syncing started"})
+}
+
+// StopSyncing godoc
+// @Summary     Stop leaderboard syncing
+// @Description Stops the ongoing background leaderboard sync job.
+// @Tags        leaderboard
+// @Accept      json
+// @Produce     json
+// @Param       body  body     dto.StartSyncingReq  true  "Sync stop request (page is ignored)"
+// @Success     200   {object} map[string]string    "Syncing stopped"
+// @Failure     400   {object} map[string]string    "Invalid request"
+// @Router      /api/v1/stop-syncing [post]
+func (h *Handler) StopSyncing(c *gin.Context) {
+	var req dto.StartSyncingReq
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid request"})
+		return
+	}
+
+	h.srv.SyncOff()
+	c.JSON(http.StatusOK, gin.H{"response": "syncing stopped"})
+}
+
+// GetSyncingStatus godoc
+// @Summary     Get syncing status
+// @Description Returns whether the leaderboard syncing process is active and current progress info.
+// @Tags        leaderboard
+// @Accept      json
+// @Produce     json
+// @Success     200   {object} dto.GetSyncStatusResponse "Current sync status"
+// @Router      /api/v1/sync-status [get]
+func (h *Handler) GetSyncingStatus(c *gin.Context) {
+	c.JSON(http.StatusOK, h.srv.GetSyncStatus())
+}

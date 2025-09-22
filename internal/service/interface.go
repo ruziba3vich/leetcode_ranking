@@ -16,4 +16,7 @@ type UserService interface {
 	GetUsersByCountry(ctx context.Context, arg *users_storage.GetUsersByCountryParams) (*dto.GetUsersByCountryResponse, error)
 	SyncLeaderboard(ctx context.Context, opts SyncOptions) error
 	UpdateUserByUsername(ctx context.Context, arg *users_storage.UpdateUserByUsernameParams) (*users_storage.UserDatum, error)
+	SyncOff()
+	SyncOn()
+	GetSyncStatus() *dto.GetSyncStatusResponse
 }
