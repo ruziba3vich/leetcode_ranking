@@ -18,6 +18,10 @@ type Storage struct {
 	db *sql.DB
 }
 
+func NewStorage(db *sql.DB) *Storage {
+	return &Storage{db: db}
+}
+
 // UpsertUserData copies all records into staging table, then merges into actual table with upsert
 func (s *Storage) UpsertUserData(ctx context.Context, records []*models.StageUserDataParams) error {
 	tx, err := s.db.BeginTx(ctx, nil)
