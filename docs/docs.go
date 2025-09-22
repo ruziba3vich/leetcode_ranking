@@ -148,6 +148,121 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/api/v1/stop-syncing": {
+            "post": {
+                "description": "Stops the ongoing background leaderboard sync job.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "leaderboard"
+                ],
+                "summary": "Stop leaderboard syncing",
+                "parameters": [
+                    {
+                        "description": "Sync stop request (page is ignored)",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_ruziba3vich_leetcode_ranking_internal_dto.StartSyncingReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Syncing stopped",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/sync-leaderboard": {
+            "post": {
+                "description": "Starts the background process to sync the leaderboard from LeetCode.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "leaderboard"
+                ],
+                "summary": "Start leaderboard syncing",
+                "parameters": [
+                    {
+                        "description": "Sync start request (page number to begin from)",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_ruziba3vich_leetcode_ranking_internal_dto.StartSyncingReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Syncing started",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/sync-status": {
+            "get": {
+                "description": "Returns whether the leaderboard syncing process is active and current progress info.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "leaderboard"
+                ],
+                "summary": "Get syncing status",
+                "responses": {
+                    "200": {
+                        "description": "Current sync status",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_ruziba3vich_leetcode_ranking_internal_dto.GetSyncStatusResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -200,6 +315,17 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_ruziba3vich_leetcode_ranking_internal_dto.GetSyncStatusResponse": {
+            "type": "object",
+            "properties": {
+                "is_on": {
+                    "type": "boolean"
+                },
+                "page": {
+                    "type": "integer"
+                }
+            }
+        },
         "github_com_ruziba3vich_leetcode_ranking_internal_dto.GetUsersByCountryResponse": {
             "type": "object",
             "required": [
@@ -224,6 +350,14 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/github_com_ruziba3vich_leetcode_ranking_db_users_storage.UserDatum"
                     }
+                }
+            }
+        },
+        "github_com_ruziba3vich_leetcode_ranking_internal_dto.StartSyncingReq": {
+            "type": "object",
+            "properties": {
+                "page": {
+                    "type": "integer"
                 }
             }
         },
