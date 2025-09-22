@@ -5,13 +5,14 @@ import (
 	"database/sql"
 	"fmt"
 
+	"github.com/k0kubun/pp"
 	"github.com/lib/pq"
 	"github.com/ruziba3vich/leetcode_ranking/internal/models"
 )
 
 const (
 	userDataTable        = "user_data"
-	stagingUserDataTable = "user_data_staging"
+	stagingUserDataTable = "staging_user_data"
 )
 
 type Storage struct {
@@ -69,6 +70,7 @@ func (s *Storage) UpsertUserData(ctx context.Context, records []*models.StageUse
 	}
 
 	if _, err := stmt.Exec(); err != nil {
+		pp.Println(err.Error())
 		return fmt.Errorf("finalize copyin: %w", err)
 	}
 	if err := stmt.Close(); err != nil {
@@ -111,10 +113,12 @@ func (s *Storage) UpsertUserData(ctx context.Context, records []*models.StageUse
 	`, userDataTable, stagingUserDataTable)
 
 	if _, err := tx.ExecContext(ctx, mergeQuery); err != nil {
+		pp.Println(err.Error())
 		return fmt.Errorf("merge into actual table: %w", err)
 	}
 
 	if err := tx.Commit(); err != nil {
+		pp.Println(err.Error())
 		return fmt.Errorf("commit tx: %w", err)
 	}
 	return nil
