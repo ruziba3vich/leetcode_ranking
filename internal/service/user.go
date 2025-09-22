@@ -17,10 +17,10 @@ type userService struct {
 	leetCodeClient *LeetCodeClient
 	storage        users_storage.Querier
 	logger         *logger.Logger
-	dbStorage      storage.Storage
+	dbStorage      *storage.Storage
 }
 
-func NewUserService(storage users_storage.Querier, dbStorage storage.Storage, leetCodeClient *LeetCodeClient, log *logger.Logger) UserService {
+func NewUserService(storage users_storage.Querier, dbStorage *storage.Storage, leetCodeClient *LeetCodeClient, log *logger.Logger) UserService {
 	return &userService{
 		storage:        storage,
 		dbStorage:      dbStorage,
@@ -30,7 +30,7 @@ func NewUserService(storage users_storage.Querier, dbStorage storage.Storage, le
 }
 
 func (s *userService) CreateUser(ctx context.Context, req *dto.CreateUserRequest) (*users_storage.UserDatum, error) {
-	data, err := s.FetchLeetCodeUser(ctx, req.Username)
+	data, err := s.fetchAndConvertUser(req.Username)
 	if err != nil {
 		s.logger.Error("could not fetch user", map[string]any{"error": err.Error(), "username": req.Username})
 		return nil, err
