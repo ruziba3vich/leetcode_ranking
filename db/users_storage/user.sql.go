@@ -73,12 +73,16 @@ func (q *Queries) DeleteUserByUsername(ctx context.Context, username string) err
 }
 
 const getAllUsersCountByCountry = `-- name: GetAllUsersCountByCountry :one
-SELECT COUNT(*) FROM user_data
-WHERE country_code = $1
+SELECT COUNT(*) 
+FROM user_data
+WHERE
+  (country_code = $1::text AND $1::text != 'all')
+  OR
+  ($1::text = 'all' AND country_code IS NOT NULL AND country_code != '')
 `
 
-func (q *Queries) GetAllUsersCountByCountry(ctx context.Context, countryCode sql.NullString) (int64, error) {
-	row := q.db.QueryRowContext(ctx, getAllUsersCountByCountry, countryCode)
+func (q *Queries) GetAllUsersCountByCountry(ctx context.Context, dollar_1 string) (int64, error) {
+	row := q.db.QueryRowContext(ctx, getAllUsersCountByCountry, dollar_1)
 	var count int64
 	err := row.Scan(&count)
 	return count, err
