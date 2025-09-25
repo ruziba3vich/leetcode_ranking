@@ -41,13 +41,13 @@ LIMIT $1 OFFSET $2;
 SELECT *
 FROM user_data
 WHERE
-  ($1 = 'all' AND country_code IS NOT NULL AND country_code != '')
-  OR ($1 != 'all' AND country_code = $1)
+  (sqlc.arg(country)::text = 'all' AND country_code IS NOT NULL AND country_code != '')
+  OR (sqlc.arg(country)::text != 'all' AND country_code = sqlc.arg(country)::text)
 ORDER BY
   total_problems_solved DESC,
   total_submissions ASC,
   username ASC
-LIMIT $2 OFFSET $3;
+LIMIT sqlc.arg(limit_arg) OFFSET sqlc.arg(offset_arg);
 
 -- name: UpdateUserByUsername :one
 UPDATE user_data

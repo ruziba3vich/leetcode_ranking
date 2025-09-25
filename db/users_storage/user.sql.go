@@ -114,23 +114,23 @@ const getUsersByCountry = `-- name: GetUsersByCountry :many
 SELECT id, username, user_slug, user_avatar, country_code, country_name, real_name, typename, total_problems_solved, total_submissions, created_at, updated_at
 FROM user_data
 WHERE
-  ($1 = 'all' AND country_code IS NOT NULL AND country_code != '')
-  OR ($1 != 'all' AND country_code = $1)
+  ($1::text = 'all' AND country_code IS NOT NULL AND country_code != '')
+  OR ($1::text != 'all' AND country_code = $1::text)
 ORDER BY
   total_problems_solved DESC,
   total_submissions ASC,
   username ASC
-LIMIT $2 OFFSET $3
+LIMIT $3 OFFSET $2
 `
 
 type GetUsersByCountryParams struct {
-	Column1 interface{} `json:"column_1"`
-	Limit   int32       `json:"limit"`
-	Offset  int32       `json:"offset"`
+	Country   string `json:"country"`
+	OffsetArg int32  `json:"offset_arg"`
+	LimitArg  int32  `json:"limit_arg"`
 }
 
 func (q *Queries) GetUsersByCountry(ctx context.Context, arg GetUsersByCountryParams) ([]UserDatum, error) {
-	rows, err := q.db.QueryContext(ctx, getUsersByCountry, arg.Column1, arg.Limit, arg.Offset)
+	rows, err := q.db.QueryContext(ctx, getUsersByCountry, arg.Country, arg.OffsetArg, arg.LimitArg)
 	if err != nil {
 		return nil, err
 	}

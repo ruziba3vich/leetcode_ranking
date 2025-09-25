@@ -120,7 +120,7 @@ func (s *userService) GetUsersByCountry(ctx context.Context, arg *users_storage.
 		return nil, err
 	}
 
-	totalCount, err := s.storage.GetAllUsersCountByCountry(ctx, arg.CountryCode)
+	totalCount, err := s.storage.GetAllUsersCountByCountry(ctx, sql.NullString{String: arg.Country, Valid: true})
 	if err != nil {
 		return nil, errors.New("failed to fetch users count")
 	}
