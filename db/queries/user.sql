@@ -68,7 +68,9 @@ DELETE FROM user_data
 WHERE username = $1;
 
 -- name: GetAllUsersCountByCountry :one
-SELECT COUNT(*) FROM user_data
-WHERE country_code = $1;
-
--- name: GetAllUsers
+SELECT COUNT(*) 
+FROM user_data
+WHERE
+  (country_code = $1::text AND $1::text != 'all')
+  OR
+  ($1::text = 'all' AND country_code IS NOT NULL AND country_code != '');
