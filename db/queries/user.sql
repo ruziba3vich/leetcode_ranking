@@ -33,17 +33,21 @@ LIMIT 1;
 
 -- name: ListUsers :many
 SELECT * FROM user_data
-ORDER BY total_problems_solved DESC, username ASC
+WHERE country_code IS NOT NULL AND country_code != ''
+ORDER BY total_problems_solved DESC, total_submissions ASC
 LIMIT $1 OFFSET $2;
 
 -- name: GetUsersByCountry :many
-SELECT * FROM user_data
-WHERE country_code = $1
-ORDER BY 
+SELECT *
+FROM user_data
+WHERE
+  (sqlc.arg(country)::text = 'all' AND country_code IS NOT NULL AND country_code != '')
+  OR (sqlc.arg(country)::text != 'all' AND country_code = sqlc.arg(country)::text)
+ORDER BY
   total_problems_solved DESC,
   total_submissions ASC,
   username ASC
-LIMIT $2 OFFSET $3;
+LIMIT sqlc.arg(limit_arg) OFFSET sqlc.arg(offset_arg);
 
 -- name: UpdateUserByUsername :one
 UPDATE user_data
@@ -66,3 +70,5 @@ WHERE username = $1;
 -- name: GetAllUsersCountByCountry :one
 SELECT COUNT(*) FROM user_data
 WHERE country_code = $1;
+
+-- name: GetAllUsers

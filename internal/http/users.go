@@ -2,7 +2,6 @@ package http
 
 import (
 	"context"
-	"database/sql"
 	"errors"
 	"net/http"
 	"time"
@@ -91,9 +90,9 @@ func (h *Handler) GetUsersByCountry(c *gin.Context) {
 	offset := (req.Page - 1) * req.Limit
 
 	response, err := h.srv.GetUsersByCountry(ctx, &users_storage.GetUsersByCountryParams{
-		CountryCode: sql.NullString{String: req.Country, Valid: true},
-		Limit:       int32(req.Limit),
-		Offset:      int32(offset),
+		Country:   req.Country,
+		LimitArg:  int32(req.Limit),
+		OffsetArg: int32(offset),
 	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "internal server error"})

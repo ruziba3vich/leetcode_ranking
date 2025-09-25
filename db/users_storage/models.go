@@ -9,6 +9,18 @@ import (
 	"time"
 )
 
+type StagingUserDatum struct {
+	Username            string         `json:"username"`
+	UserSlug            string         `json:"user_slug"`
+	UserAvatar          sql.NullString `json:"user_avatar"`
+	CountryCode         sql.NullString `json:"country_code"`
+	CountryName         sql.NullString `json:"country_name"`
+	RealName            sql.NullString `json:"real_name"`
+	Typename            sql.NullString `json:"typename"`
+	TotalProblemsSolved int32          `json:"total_problems_solved"`
+	TotalSubmissions    int32          `json:"total_submissions"`
+}
+
 type UserDatum struct {
 	ID                  int32          `json:"id"`
 	Username            string         `json:"username"`

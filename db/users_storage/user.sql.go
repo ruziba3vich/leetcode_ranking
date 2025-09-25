@@ -111,23 +111,26 @@ func (q *Queries) GetUserByUsername(ctx context.Context, username string) (UserD
 }
 
 const getUsersByCountry = `-- name: GetUsersByCountry :many
-SELECT id, username, user_slug, user_avatar, country_code, country_name, real_name, typename, total_problems_solved, total_submissions, created_at, updated_at FROM user_data
-WHERE country_code = $1
-ORDER BY 
+SELECT id, username, user_slug, user_avatar, country_code, country_name, real_name, typename, total_problems_solved, total_submissions, created_at, updated_at
+FROM user_data
+WHERE
+  ($1::text = 'all' AND country_code IS NOT NULL AND country_code != '')
+  OR ($1::text != 'all' AND country_code = $1::text)
+ORDER BY
   total_problems_solved DESC,
   total_submissions ASC,
   username ASC
-LIMIT $2 OFFSET $3
+LIMIT $3 OFFSET $2
 `
 
 type GetUsersByCountryParams struct {
-	CountryCode sql.NullString `json:"country_code"`
-	Limit       int32          `json:"limit"`
-	Offset      int32          `json:"offset"`
+	Country   string `json:"country"`
+	OffsetArg int32  `json:"offset_arg"`
+	LimitArg  int32  `json:"limit_arg"`
 }
 
 func (q *Queries) GetUsersByCountry(ctx context.Context, arg GetUsersByCountryParams) ([]UserDatum, error) {
-	rows, err := q.db.QueryContext(ctx, getUsersByCountry, arg.CountryCode, arg.Limit, arg.Offset)
+	rows, err := q.db.QueryContext(ctx, getUsersByCountry, arg.Country, arg.OffsetArg, arg.LimitArg)
 	if err != nil {
 		return nil, err
 	}
@@ -164,7 +167,8 @@ func (q *Queries) GetUsersByCountry(ctx context.Context, arg GetUsersByCountryPa
 
 const listUsers = `-- name: ListUsers :many
 SELECT id, username, user_slug, user_avatar, country_code, country_name, real_name, typename, total_problems_solved, total_submissions, created_at, updated_at FROM user_data
-ORDER BY total_problems_solved DESC, username ASC
+WHERE country_code IS NOT NULL AND country_code != ''
+ORDER BY total_problems_solved DESC, total_submissions ASC
 LIMIT $1 OFFSET $2
 `
 
