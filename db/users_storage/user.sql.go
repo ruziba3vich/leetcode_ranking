@@ -164,7 +164,8 @@ func (q *Queries) GetUsersByCountry(ctx context.Context, arg GetUsersByCountryPa
 
 const listUsers = `-- name: ListUsers :many
 SELECT id, username, user_slug, user_avatar, country_code, country_name, real_name, typename, total_problems_solved, total_submissions, created_at, updated_at FROM user_data
-ORDER BY total_problems_solved DESC, username ASC
+WHERE country_code IS NOT NULL AND country_code != ''
+ORDER BY total_problems_solved DESC, total_submissions ASC
 LIMIT $1 OFFSET $2
 `
 

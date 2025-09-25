@@ -33,7 +33,8 @@ LIMIT 1;
 
 -- name: ListUsers :many
 SELECT * FROM user_data
-ORDER BY total_problems_solved DESC, username ASC
+WHERE country_code IS NOT NULL AND country_code != ''
+ORDER BY total_problems_solved DESC, total_submissions ASC
 LIMIT $1 OFFSET $2;
 
 -- name: GetUsersByCountry :many
@@ -66,3 +67,5 @@ WHERE username = $1;
 -- name: GetAllUsersCountByCountry :one
 SELECT COUNT(*) FROM user_data
 WHERE country_code = $1;
+
+-- name: GetAllUsers
