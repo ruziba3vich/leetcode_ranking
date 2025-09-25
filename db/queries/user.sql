@@ -38,9 +38,12 @@ ORDER BY total_problems_solved DESC, total_submissions ASC
 LIMIT $1 OFFSET $2;
 
 -- name: GetUsersByCountry :many
-SELECT * FROM user_data
-WHERE country_code = $1
-ORDER BY 
+SELECT *
+FROM user_data
+WHERE
+  ($1 = 'all' AND country_code IS NOT NULL AND country_code != '')
+  OR ($1 != 'all' AND country_code = $1)
+ORDER BY
   total_problems_solved DESC,
   total_submissions ASC,
   username ASC
